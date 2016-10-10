@@ -5,6 +5,8 @@ var io = require('socket.io')(http);
 var logger = require('morgan');
 var mongoose = require('mongoose');
 
+
+
 // <-- Start mongoDB connection
 mongoose.connect('mongodb://localhost/nupath', function(err, db){
   if (err) {
