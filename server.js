@@ -78,6 +78,7 @@ app.use(ejsLayouts);
 app.use('/', authenticateRoutes);
 app.use('/users', userRoutes);
 app.use('/chat-messages', chatRoutes);
+app.use('/posts', postRoutes);
 
 app.get('/chat', function(req, res){
   if(!io.nsps['/chat']){
@@ -106,21 +107,11 @@ app.get('/chat', function(req, res){
 });
 // end using routes -->
 
-// <-- Start socket io
-io.on('connect', function(socket){
-  console.log('A user connected.');
 
-  socket.on('disconnect', function(){
-    console.log('A user disconnected');
-  })
-});
-
-// End socket io -->
-
-http.listen(3000, function(err){
+http.listen(port, function(err){
   if (err) {
     console.log("Error: Could not start server.");
   } else {
-    console.log("Success: Listening on port 3000.");
+    console.log(`Success: Listening on port: ${port}`);
   }
 })
