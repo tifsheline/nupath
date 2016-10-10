@@ -36,6 +36,7 @@ mongoose.connect('mongodb://localhost/nupath', function(err, db){
 var userRoutes = require('./routes/users.js');
 var chatRoutes = require('./routes/messages.js');
 var authenticateRoutes = require('./routes/authenticate.js');
+var postRoutes = require('./routes/posts.js');
 
 // End requiring routers -->
 
@@ -108,10 +109,10 @@ app.get('/chat', function(req, res){
 // end using routes -->
 
 
-http.listen(port, function(err){
+http.listen(3000, function(err){
   if (err) {
     console.log("Error: Could not start server.");
   } else {
-    console.log(`Success: Listening on port: ${port}`);
+    console.log('Success: Listening on port: 3000');
   }
 })
