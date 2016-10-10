@@ -10,6 +10,7 @@ var express = require('express'),
     flash = require('connect-flash'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
+    MongoStore = require('connect-mongo')(session),
     passport = require('passport'),
     passportConfig = require('./config/passport.js'),
     userRoutes = require('./routes/users.js'),
@@ -50,7 +51,8 @@ app.use(session({
   secret: 'Tirevo',
   cookie: {maxAge: 6000000},
   resave: true,
-  saveUninitialize: false
+  saveUninitialize: false,
+  store: new MongoStore({url: 'mongodb://localhost/nupath'})
 }))
 app.use(passport.initialize());
 app.use(passport.session());
