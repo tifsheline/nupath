@@ -1,5 +1,6 @@
-var userRouter = require('express').Router();
-var usersController = require("../controllers/users.js");
+var
+	userRouter = require('express').Router(),
+	usersController = require("../controllers/users.js")
 
 userRouter.route('/')
 	 .get(usersController.index)
