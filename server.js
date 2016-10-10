@@ -4,6 +4,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+
 
 // <-- Start mongoDB connection
 mongoose.connect('mongodb://localhost/nupath', function(err, db){
@@ -17,12 +19,16 @@ mongoose.connect('mongodb://localhost/nupath', function(err, db){
 
 // <-- Start requiring routers
 
+// Users route:
+var userRoutes = require('./routes/users.js');
+
 // End requiring routers -->
 
 // <-- Start middleware
 
 app.use(logger('dev'));
 app.use(express.static('./public'));
+app.use(bodyParser.json());
 
 // End middleware -->
 
@@ -33,8 +39,9 @@ app.get('/', function(req, res){
   res.json({message: 'Working'});
 });
 
-app.get('/chat', function(req, res){
+app.use('/users', userRoutes);
 
+app.get('/chat', function(req, res){
   if(!io.nsps['/chat']){
     var chat = io.of('/chat');
     chat.on('connect', function(socket){
