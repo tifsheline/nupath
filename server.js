@@ -65,6 +65,11 @@ app.use(function(req, res, next){
   next()
 })
 
+function isLoggedIn(req, res, next){
+	if(req.isAuthenticated()) return next()
+	res.redirect('/login')
+}
+
 // EJS configuration
 app.set('view engine', 'ejs');
 app.use(ejsLayouts);
@@ -83,14 +88,14 @@ app.use('/users', userRoutes);
 app.use('/chat-messages', chatRoutes);
 app.use('/posts', postRoutes);
 
-app.get('/chat', function(req, res){
+app.get('/chat', isLoggedIn, function(req, res){
   if(!io.nsps['/chat']){
     var chat = io.of('/chat');
     chat.on('connect', function(socket){
       console.log('A user has connected.');
 
       socket.on('new-chat', function(message){
-        Message.create({content: message, public: true}, function(err, data){
+        Message.create({_by: req.user.id, content: message, public: true}, function(err, data){
           if (err){
             chat.emit('broadcast-error', err);
           } else {
