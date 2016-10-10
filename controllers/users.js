@@ -57,5 +57,13 @@ module.exports = {
       	res.json(data);
       }
     });
+  },
+
+  login: function(req, res){
+    res.render('authenticate/login')
+  },
+
+  signup: function(req, res){
+    res.render('authenticate/signup', {message: req.flash('signupMessage')})
   }
 }
