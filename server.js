@@ -6,9 +6,6 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
-
-
-
 // <-- Start mongoDB connection
 mongoose.connect('mongodb://localhost/nupath', function(err, db){
   if (err) {
@@ -21,13 +18,14 @@ mongoose.connect('mongodb://localhost/nupath', function(err, db){
 
 // <-- Start requiring routers
 
-//all users route:
+// Users route:
 var userRoutes = require('./routes/users.js');
 // End requiring routers -->
 
 // <-- Start middleware
 
 app.use(logger('dev'));
+app.use(express.static('./public'));
 app.use(bodyParser.json());
 // End middleware -->
 
@@ -40,17 +38,29 @@ app.get('/', function(req, res){
 
 app.use('/users', userRoutes);
 
-// app.use('/chat', chatMeesagesRoutes);
+// end using routes -->
+
+app.get('/chat', function(req, res){
+  if(!io.nsps['/chat']){
+    var chat = io.of('/chat');
+    chat.on('connect', function(socket){
+      console.log('A user has connected.');
+
+      socket.on('new-chat', function(message){
+        chat.emit('broadcast-chat', message);
+      })
+
+      socket.on('disconnect', function(){
+        console.log('A user has disconnected.');
+      })
+    })
+  }
+
+  res.sendFile(__dirname + '/public/chat.html');
+});
 // end using routes -->
 
 // <-- Start socket io
-io.on('connect', function(socket){
-  console.log('A user connected.');
-
-  socket.on('disconnect', function(){
-    console.log('A user disconnected');
-  })
-});
 
 // End socket io -->
 
