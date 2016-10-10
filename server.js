@@ -3,8 +3,21 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var logger = require('morgan');
+var mongoose = require('mongoose');
+
+// <-- Start mongoDB connection
+mongoose.connect('mongodb://localhost/nupath', function(err, db){
+  if (err) {
+    console.log("Error: Could not connect to MongoDB.");
+  } else {
+    console.log("Success: Connected to MongoDB.");
+  }
+});
+// -->
 
 // <-- Start requiring routers
+
+var chatMessagesRoutes = require('./routes/chatMessages.js');
 
 // End requiring routers -->
 
@@ -21,6 +34,7 @@ app.get('/', function(req, res){
   res.json({message: 'Working'});
 });
 
+app.use('/chat', chatMeesagesRoutes);
 // end using routes -->
 
 // <-- Start socket io
