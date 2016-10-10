@@ -1,18 +1,27 @@
-var postRouter = require('express').Router();
-var postController = require("../controllers/posts.js");
+var postsRouter = require('express').Router();
+var postsController = require("../controllers/posts.js");
+var commentsController = require("../controllers/comments.js");
 
-postRouter.route('/')
-	 .get(postController.index)
-	 .post(postController.create);
+postsRouter.route('/')
+	 .get(postsController.index)
+	 .post(postsController.create);
 
-postRouter.route('/:id')
-	  .get(postController.show)
-	  .patch(postController.update)
-	  .delete(postController.destroy);
+postsRouter.route('/:id')
+	  .get(postsController.show)
+	  .patch(postsController.update)
+	  .delete(postsController.destroy);
 
+postsRouter.route('/:id/comments')
+	 .get(commentsController.index)
+	 .post(commentsController.create);
 
-// postRouter.get('/new', postController.new);
+postsRouter.route('/:postId/comments/:commentId')
+	  .get(commentsController.show)
+	  .patch(commentsController.update)
+	  .delete(commentsController.destroy);
 
-// postRouter.get('/:id/edit', postController.edit);
+// postsRouter.get('/new', postsController.new);
 
-module.exports = postRouter;
+// postsRouter.get('/:id/edit', postsController.edit);
+
+module.exports = postsRouter;

@@ -6,7 +6,6 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var postRoutes = require('./routes/posts');
-var commentRoutes = require('./routes/comments');
 
 var port = process.env.PORT || 3000
 
@@ -42,8 +41,7 @@ app.get('/', function(req, res){
 });
 
 // app.use('/chat', chatMeesagesRoutes);
-app.use('/usrPost', postRoutes);
-app.use('/usrComment', commentRoutes);
+app.use('/posts', postRoutes);
 // end using routes -->
 
 // <-- Start socket io
