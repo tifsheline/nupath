@@ -4,6 +4,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+
 
 
 
@@ -19,14 +21,14 @@ mongoose.connect('mongodb://localhost/nupath', function(err, db){
 
 // <-- Start requiring routers
 
-var chatMessagesRoutes = require('./routes/chatMessages.js');
-
+//all users route:
+var userRoutes = require('./routes/users.js');
 // End requiring routers -->
 
 // <-- Start middleware
 
 app.use(logger('dev'));
-
+app.use(bodyParser.json());
 // End middleware -->
 
 // <-- Start using routes
@@ -36,7 +38,9 @@ app.get('/', function(req, res){
   res.json({message: 'Working'});
 });
 
-app.use('/chat', chatMeesagesRoutes);
+app.use('/users', userRoutes);
+
+// app.use('/chat', chatMeesagesRoutes);
 // end using routes -->
 
 // <-- Start socket io
