@@ -2,7 +2,7 @@ var User = require('../models/User.js');
 
 module.exports = {
   index: function(req, res){
-  	User.find({}, function(err, data){
+  	User.find({active: true}, function(err, data){
     	if (err) {
       	res.json(err);
       } else {
@@ -50,11 +50,11 @@ module.exports = {
   },
 
   delete: function(req, res){
-  	User.findByIdAndRemove(req.params.id, function(err, data){
+    User.findByIdAndUpdate(req.params.id, {active: false}, {new: true}, function(err, data){
     	if (err) {
       	res.json(err);
       } else {
-      	res.json({message: 'Successfully deleted'});
+      	res.json(data);
       }
     });
   }
