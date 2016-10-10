@@ -5,15 +5,15 @@ var passport = require('passport'),
 authenticateRouter.route('/login')
 	.get(usersController.login)
 	.post(passport.authenticate('local-login', {
-    successRedirect: 'authenticate/profile',
-    failureRedirect:'authenticate/login'
+    successRedirect: '/profile',
+    failureRedirect:'/login'
   }));
 
 authenticateRouter.route('/signup')
 .get(usersController.signup)
 .post(passport.authenticate('local-signup', {
-  successRedirect: 'authenticate/profile',
-  failureRedirect: 'authenticate/signup'
+  successRedirect: '/profile',
+  failureRedirect: '/signup'
 }));
 
 authenticateRouter.get('/profile', isLoggedIn, function(req, res){

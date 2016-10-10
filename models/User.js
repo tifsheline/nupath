@@ -4,15 +4,18 @@ var
 
 var userSchema = mongoose.Schema({
   // Start add properties here
-  name: String,
-  email: String,
-  school: String,
+  local: {
+    name: String,
+    email: String,
+    password: String,
+    school: String
+  },
   active: {type: Boolean, default: true}
 }, {timestamps: true});
 
 //method that generates a hash for each user:
 userSchema.methods.generateHash = function(password){
-  return bcrypt.hashSync(password, becrypt.genSaltSync(8))
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8))
 }
 
 userSchema.methods.validPassword = function(password){

@@ -8,7 +8,7 @@ var
   })
 
   passport.deserializeUser(function(id, done){
-    USer.findById(id, function(err, user){
+    User.findById(id, function(err, user){
       done(err, user)
     })
   })
@@ -17,11 +17,10 @@ var
 
 // local signup:
 passport.use('local-signup', new LocalStrategy({
-  usernameField: 'name',
-  emailField: 'email',
+  usernameField: 'email',
   passwordField: 'password',
   passReqToCallback: true
-}, function(req, name, email, password, done){
+}, function(req, email, password, done){
   User.findOne({'local.email' :email}, function(err, user){
     //there's a problem:
     if(err) return done(err)
@@ -41,11 +40,10 @@ passport.use('local-signup', new LocalStrategy({
 
 // local signin:
 passport.use('local-login', new LocalStrategy({
-  usernameField: 'name',
-  emailField: 'email',
+  usernameField: 'email',
   passwordField: 'password',
   passReqToCallback: true
-}, function(req, name, email, password, done){
+}, function(req, email, password, done){
   //make sure user exists by searching DB
   User.findOne({'local.email': email}, function(err, user){
     if(err) return done(err)
