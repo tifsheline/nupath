@@ -1,8 +1,8 @@
-var ChatMessage = require('../models/ChatMessage.js');
+var Message = require('../models/Message.js');
 
 var controller = {
   index: function(req, res){
-    ChatMessage.find({active: true}, function(err, data){
+    Message.find({active: true}, function(err, data){
       if (err) {
         res.json(err);
       } else {
@@ -12,7 +12,7 @@ var controller = {
   },
 
   show: function(req, res){
-    ChatMessage.findById(req.params.id, function(err, data){
+    Message.findById(req.params.id, function(err, data){
       if (err) {
         res.json(err);
       } else {
@@ -22,7 +22,7 @@ var controller = {
   },
 
   delete: function(req, res){
-    ChatMessage.findByIdAndUpdate(req.params.id, {active: false}, {new: true}, function(err, data){
+    Message.findByIdAndUpdate(req.params.id, {active: false}, {new: true}, function(err, data){
       if (err) {
         res.json(err);
       } else {

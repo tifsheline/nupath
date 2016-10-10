@@ -18,7 +18,7 @@ var express = require('express'),
 
 
 // Require chat message model
-var ChatMessage = require('./models/ChatMessage.js');
+var Message = require('./models/Message.js');
 
 // <-- Start mongoDB connection
 mongoose.connect('mongodb://localhost/nupath', function(err, db){
@@ -34,7 +34,7 @@ mongoose.connect('mongodb://localhost/nupath', function(err, db){
 
 //all users route:
 var userRoutes = require('./routes/users.js');
-var chatRoutes = require('./routes/chatMessages.js');
+var chatRoutes = require('./routes/messages.js');
 var authenticateRoutes = require('./routes/authenticate.js');
 
 // End requiring routers -->
@@ -86,7 +86,7 @@ app.get('/chat', function(req, res){
       console.log('A user has connected.');
 
       socket.on('new-chat', function(message){
-        ChatMessage.create({content: message}, function(err, data){
+        Message.create({content: message, public: true}, function(err, data){
           if (err){
             chat.emit('broadcast-error', err);
           } else {
