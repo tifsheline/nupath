@@ -17,13 +17,12 @@ mongoose.connect('mongodb://localhost/nupath', function(err, db){
 
 // <-- Start requiring routers
 
-var chatMessagesRoutes = require('./routes/chatMessages.js');
-
 // End requiring routers -->
 
 // <-- Start middleware
 
 app.use(logger('dev'));
+app.use(express.static('./public'));
 
 // End middleware -->
 
@@ -34,17 +33,28 @@ app.get('/', function(req, res){
   res.json({message: 'Working'});
 });
 
-app.use('/chat', chatMeesagesRoutes);
+app.get('/chat', function(req, res){
+
+  if(!io.nsps['/chat']){
+    var chat = io.of('/chat');
+    chat.on('connect', function(socket){
+      console.log('A user has connected.');
+
+      socket.on('new-chat', function(message){
+        chat.emit('broadcast-chat', message);
+      })
+
+      socket.on('disconnect', function(){
+        console.log('A user has disconnected.');
+      })
+    })
+  }
+
+  res.sendFile(__dirname + '/public/chat.html');
+});
 // end using routes -->
 
 // <-- Start socket io
-io.on('connect', function(socket){
-  console.log('A user connected.');
-
-  socket.on('disconnect', function(){
-    console.log('A user disconnected');
-  })
-});
 
 // End socket io -->
 
