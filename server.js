@@ -4,8 +4,9 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var postRoutes = require('./routes/posts');
 
-
+var port = process.env.PORT || 3000
 
 // <-- Start mongoDB connection
 mongoose.connect('mongodb://localhost/nupath', function(err, db){
@@ -19,7 +20,8 @@ mongoose.connect('mongodb://localhost/nupath', function(err, db){
 
 // <-- Start requiring routers
 
-var chatMessagesRoutes = require('./routes/chatMessages.js');
+// var chatMessagesRoutes = require('./routes/chatMessages.js');
+// var postRoutes = require('./routes/posts.js')
 
 // End requiring routers -->
 
@@ -36,7 +38,8 @@ app.get('/', function(req, res){
   res.json({message: 'Working'});
 });
 
-app.use('/chat', chatMeesagesRoutes);
+// app.use('/chat', chatMeesagesRoutes);
+app.use('/', postRoutes);
 // end using routes -->
 
 // <-- Start socket io
@@ -50,10 +53,10 @@ io.on('connect', function(socket){
 
 // End socket io -->
 
-http.listen(3000, function(err){
+http.listen(port, function(err){
   if (err) {
     console.log("Error: Could not start server.");
   } else {
-    console.log("Success: Listening on port 3000.");
+    console.log(`Success: Listening on port: ${port}`);
   }
 })
