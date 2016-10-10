@@ -4,7 +4,9 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 var postRoutes = require('./routes/posts');
+var commentRoutes = require('./routes/comments');
 
 var port = process.env.PORT || 3000
 
@@ -28,6 +30,7 @@ mongoose.connect('mongodb://localhost/nupath', function(err, db){
 // <-- Start middleware
 
 app.use(logger('dev'));
+app.use(bodyParser.json());
 
 // End middleware -->
 
@@ -39,15 +42,16 @@ app.get('/', function(req, res){
 });
 
 // app.use('/chat', chatMeesagesRoutes);
-app.use('/', postRoutes);
+app.use('/usrPost', postRoutes);
+app.use('/usrComment', commentRoutes);
 // end using routes -->
 
 // <-- Start socket io
 io.on('connect', function(socket){
-  console.log('A user connected.');
+  console.log('A user connected in the backend.');
 
   socket.on('disconnect', function(){
-    console.log('A user disconnected');
+    console.log('A user disconnected in the backend.');
   })
 });
 

@@ -1,16 +1,13 @@
+//post model
+
 var mongoose = require('mongoose');
 
-  //establish allowed properties of a post
-postSchema = mongoose.Schema({
-  title: String
-  // user: null
+var userPostSchema = mongoose.Schema({
+  // _by: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+  post: String
 },
 {timestamps: true});
 
-// pre method if needed
+var UsrPost = mongoose.model('UsrPost', userPostSchema)
 
-//make a model out of that Schema
-var Post = mongoose.model('Post', postSchema);
-
-//make the Post model available anywhere that require it.
-module.exports = Post;
+module.exports = UsrPost
