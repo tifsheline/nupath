@@ -2,5 +2,11 @@ Name: <%= data.local.name %> <br />
 Email: <%= data.local.email %> <br />
 School: <%= data.local.school %> <br />
 Joined: <%= data.createdAt %> <br />
-Achievements: <%= data.achievements.length %>
+<hr>
+Achievements: <br>
+<% data.achievements.forEach(function(el){ %>
+  <%= el.year%> <br>
+  <%= el.title%> <br>
+  <%= el.description%> <br>
+<% }) %>
 <hr>
