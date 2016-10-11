@@ -1,6 +1,7 @@
 var
 	userRouter = require('express').Router(),
-	usersController = require("../controllers/users.js")
+	usersController = require("../controllers/users.js"),
+	achievementsController = require('../controllers/achievements.js');
 
 userRouter.route('/')
 	 .get(usersController.index)
@@ -14,5 +15,11 @@ userRouter.route('/:id')
 userRouter.get('/new', usersController.new);
 
 userRouter.get('/:id/edit', usersController.edit);
+
+userRouter.get('/:id/achievements', achievementsController.index);
+userRouter.post('/:id/achievements', achievementsController.create);
+userRouter.get('/:id/achievements/new', achievementsController.new);
+userRouter.patch('/:id/achievements/:id', achievementsController.update);
+userRouter.delete('/:id/achievements/:id', achievementsController.delete);
 
 module.exports = userRouter;

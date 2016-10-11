@@ -2,6 +2,13 @@ var
   mongoose = require('mongoose'),
   bcrypt = require('bcrypt-nodejs')
 
+var achievementSchema = mongoose.Schema({
+  year: {type: Number, required: true},
+  title: {type: String, required: true},
+  description: {type: String, required: true},
+  active: {type: Boolean, default: true}
+}, {timestamps: true});
+
 var userSchema = mongoose.Schema({
   // Start add properties here
   local: {
@@ -11,6 +18,7 @@ var userSchema = mongoose.Schema({
     school: String
   },
   posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
+  achievements: [achievementSchema],
   active: {type: Boolean, default: true}
 }, {timestamps: true});
 
