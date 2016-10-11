@@ -16,7 +16,11 @@ User Id: <%= post._by._id %><br />
 <hr>
 <% post.comments.forEach(function(comment){ %>
   <%= comment.content %><br />
-  Comment Id: <%= comment._id %><hr />
+  Comment Id: <%= comment._id %><br />
+  <form class="" action="/posts/<%= post._id %>/comments/comment._id?_method=delete" method="post">
+    <input class="btn btn-danger" type="submit" name="submit" value="Delete">
+  </form>
+  <hr />
 <% }) %>
 <form class="" action="/posts/<%= post._id %>/comments" method="post">
   <textarea id="comment" name="content" class="form-control" rows="2"></textarea><br>

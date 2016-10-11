@@ -44,13 +44,12 @@ module.exports = {
 
     destroy: function(req, res) {
       //delete a comment
-      Post.findById(req.params.postId, function(err, data){
-        if(err) return res.json(err);
-        data.comments.id(req.params.commentId).remove()
-        data.save(function(){
-          if(err) return res.json(err);
-          res.json(data)
-        })
-      })
+      Post.findByIdAndUpdate(req.params.postId, {active: false}, {new: true}, function(err, data) {
+        if (err) {
+          res.json(err);
+        } else {
+          res.json(data);
+        }
+      });
     }
 };
