@@ -1,3 +1,13 @@
+<hr>
+<label class="sr-only" for="inputHelpBlock">nUPath Newsfeed</label>
+<textarea id="post" class="form-control" rows="3"></textarea>
+<span id="helpBlock" class="help-block">Post your comments and questions here.</span>
+
+<br>
+
+<button id="post-btn" type="button" class="btn btn-success">Post</button>
+
+<div class="panel-body">
 <% data.forEach(function(post) { %>
 <%= post._by.local.name %>
 <%= post.content %>
@@ -5,3 +15,30 @@
 <a href="/posts/<%= post._id %>">View</a>
 <hr>
 <% }) %>
+</div>
+
+<script type="text/javascript">
+  var ourBody = $('body');
+
+  var postBtn = $('#post-btn');
+
+  var postInput = $('#post')
+
+  var panel = $('.panel-body')
+
+  postBtn.on('click', function(evt){
+    evt.preventDefault();
+    var opts = {
+      method:'post',
+      url:'/posts',
+      contentType: 'application/json',
+      data: JSON.stringify({content: postInput.val()})
+    };
+    var cb = function(data){
+      var newPost = $('<div>', {id: data['_id'], class: 'panel-body', text: data['content']});
+      panel.append(newPost);
+    };
+    $.ajax(opts).done(cb);
+  });
+</script>
+>>>>>>> 91cfc2e8eb648f7ae438906b8dfca4c292a988b4
