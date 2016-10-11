@@ -2,7 +2,7 @@ var User = require('../models/User.js');
 
 module.exports = {
   index: function(req, res){
-  	User.find({active: true}, function(err, data){
+  	User.find({active: true}).populate('posts').exec(function(err, data){
     	if (err) {
       	res.json(err);
       } else {
