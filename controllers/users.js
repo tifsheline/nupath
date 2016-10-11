@@ -1,3 +1,5 @@
+//Users controller
+
 var User = require('../models/User.js');
 
 module.exports = {
@@ -6,7 +8,7 @@ module.exports = {
     	if (err) {
       	res.json(err);
       } else {
-      	res.sendFile('posts/index.ejs', data);
+      	res.sendFile(data);
       }
     });
   },

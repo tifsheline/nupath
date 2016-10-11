@@ -10,12 +10,13 @@ module.exports = {
       if (err) {
         res.json(err);
       } else {
-        res.json(data);
+        res.render('posts/index', data);
       }
     });
   },
 
   create: function(req, res) {
+    console.log(req.body)
     User.findById(req.user.id, function(err, data){
       var newPost = new Post();
       newPost.content = req.body.content;
