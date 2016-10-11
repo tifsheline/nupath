@@ -1,5 +1,6 @@
 //Comment controllers
 var Post = require('../models/Post.js');
+var User = require('../models/User.js')
 
 //models exports/ Comment VERBS
 
@@ -12,6 +13,10 @@ module.exports = {
 },
   create: function(req, res){
     Post.findById(req.params.id, function(err, data){
+          var newComment = new Post.comments();
+          newComment.content = req.body.content;
+          newComment._by = req.user.id;
+          newComment.save(function(err){
           if(err) return res.json(err);
           data.comments.push(req.body);
           data.save(function(err){
@@ -19,6 +24,11 @@ module.exports = {
             res.json(data)
           });
         })
+      })
+  },
+
+  new: function(req, res){
+    res.render('users/comment')
   },
 
   show: function(req, res) {

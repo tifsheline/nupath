@@ -8,7 +8,7 @@ postsRouter.route('/')
 
 	 postsRouter.route('/new')
 	 .get(postsController.new);
-	 
+
 postsRouter.route('/:id')
 	  .get(postsController.show)
 	  .patch(postsController.update)
@@ -20,6 +20,9 @@ postsRouter.route('/:id/edit')
 postsRouter.route('/:id/comments')
 	 .get(commentsController.index)
 	 .post(commentsController.create);
+
+postsRouter.route('/:id/comments/new')
+	 .get(commentsController.new);
 
 postsRouter.route('/:postId/comments/:commentId')
 	  .get(commentsController.show)
