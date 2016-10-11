@@ -6,10 +6,16 @@ postsRouter.route('/')
 	 .get(postsController.index)
 	 .post(postsController.create);
 
+	 postsRouter.route('/new')
+	 .get(postsController.new);
+	 
 postsRouter.route('/:id')
 	  .get(postsController.show)
 	  .patch(postsController.update)
 	  .delete(postsController.destroy);
+
+postsRouter.route('/:id/edit')
+		.get(postsController.edit);
 
 postsRouter.route('/:id/comments')
 	 .get(commentsController.index)
