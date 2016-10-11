@@ -1,5 +1,6 @@
 var User = require('../models/User.js');
 var MessageThread = require('../models/MessageThread.js');
+var Message = require('../models/Message.js');
 
 var messageThreadController = {
   index: function(req, res){
@@ -12,7 +13,7 @@ var messageThreadController = {
     });
   },
   show: function(req, res){
-    MessageThread.findById(req.params.id).populate('users', 'local').exec(function(err, data){
+    MessageThread.findById(req.params.id).populate('users messages').exec(function(err, data){
       if (err) {
         res.json(err);
       } else {
@@ -45,6 +46,30 @@ var messageThreadController = {
   delete: function(req, res){
 
   },
+
+  addMessage: function(req, res){
+    var newMessage = Message();
+    newMessage.content = req.body.content;
+    newMessage._by = req.user.id;
+    newMessage.public = false;
+    newMessage.save(function(err){
+      if (err) {
+        res.json(err);
+      } else {
+        MessageThread.findById(req.params.id, function(err, data){
+          data.messages.push(newMessage);
+          data.save(function(err){
+            if (err) {
+              res.json(err);
+            } else {
+              res.redirect('/threads/' + req.params.id);
+              // res.json(newMessage);
+            }
+          });
+        })
+      }
+    });
+  }
 }
 
 module.exports = messageThreadController;

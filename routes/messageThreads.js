@@ -9,6 +9,9 @@ router.route('/')
 router.route('/:id')
   .get(messageThreadsController.show);
 
+router.route('/:id/message/')
+  .post(messageThreadsController.addMessage);
+
 router.route('/new/:user1/:user2')
   .post(messageThreadsController.create);
 

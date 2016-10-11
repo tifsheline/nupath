@@ -4,3 +4,19 @@ Participants:
   <%= el.local.name %>
   <br>
 <% }) %>
+
+<ul id="message-list">
+
+  <% data.messages.forEach(function(el){ %>
+    <% if (el._by == currentUser.id) { %>
+    <li>You: <%= el.content %></li>
+    <% } else { %>
+    <li>!!: <%= el.content %></li>
+    <% } %>
+  <% }) %>
+</ul>
+
+<form class="" action="/threads/<%= data._id %>/message" method="post">
+  <input type="text" name="content" value="">
+  <button type="submit" name="button">Submit</button>
+</form>
