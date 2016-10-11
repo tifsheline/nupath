@@ -1,6 +1,7 @@
 //post controllers
 
 var Post = require('../models/Post.js')
+var User = require('../models/User.js')
 
 //models exports/ POST VERBS
 module.exports = {
@@ -15,16 +16,25 @@ module.exports = {
   },
 
   create: function(req, res) {
-    var newPost = new Post();
-    newPost.content = req.body.content;
-    newPost._by = req.user.id;
-    newPost.save(function(err){
-      if (err) {
-        res.json(err);
-      } else {
-        res.json(newPost)
-      }
-    })
+    User.findById(req.user.id, function(err, data){
+      var newPost = new Post();
+      newPost.content = req.body.content;
+      newPost._by = req.user.id;
+      newPost.save(function(err){
+        if (err) {
+          res.json(err);
+        } else {
+          data.posts.push(newPost);
+          data.save(function(err){
+            if (err) {
+              res.json(err);
+            } else {
+              res.json(newPost)
+            }
+          })
+        }
+      })
+    });
   },
 
   new: function(req, res){
