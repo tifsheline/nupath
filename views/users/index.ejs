@@ -1,0 +1,8 @@
+<% data.forEach(function(user) { %>
+Name: <%= user.local.name %> <br />
+Email: <%= user.local.email %> <br />
+School: <%= user.local.school %> <br />
+Joined: <%= user.createdAt %> <br />
+<a href="/users/<%= user._id %>">View</a>
+<hr>
+<% }) %>
