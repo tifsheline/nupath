@@ -3,6 +3,12 @@ Email: <%= data.local.email %> <br />
 School: <%= data.local.school %> <br />
 Joined: <%= data.createdAt %> <br />
 <hr>
+<% if (currentUser && currentUser._id.toString() != data._id.toString()) { %>
+<form class="" action="/threads/new/<%= currentUser._id%>/<%= data._id%>" method="post">
+  <input type="submit" name="name" value="Message">
+</form>
+<% } %>
+<hr>
 Achievements: <br>
 <hr>
 <% data.achievements.forEach(function(el){ %>
