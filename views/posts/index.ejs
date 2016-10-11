@@ -16,13 +16,17 @@ User Id: <%= post._by._id %><br />
 <hr>
 <% post.comments.forEach(function(comment){ %>
   <%= comment.content %><br />
-  <button style="display:inline-block;" id="post-btn" type="button" class="btn btn-danger">Delete</button>
   Comment Id: <%= comment._id %><hr />
 <% }) %>
 <form class="" action="/posts/<%= post._id %>/comments" method="post">
-  <textarea id="post" class="form-control" rows="2"></textarea><br>
-  <button style="display:inline-block;" id="post-btn" type="button" class="btn btn-success">Post</button>
+  <textarea id="comment" name="content" class="form-control" rows="2"></textarea><br>
+  <input class="btn btn-success" type="submit" name="submit" value="Post">
 </form>
+
+<form class="" action="/posts/<%= post._id %>?_method=delete" method="post">
+  <input class="btn btn-danger" type="submit" name="submit" value="Delete">
+</form>
+
 <hr />
 <% }) %>
 </div>
@@ -50,4 +54,6 @@ User Id: <%= post._by._id %><br />
     };
     $.ajax(opts).done(cb);
   });
+
+
 </script>
