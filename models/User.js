@@ -6,6 +6,7 @@ var achievementSchema = mongoose.Schema({
   year: {type: Number, required: true},
   title: {type: String, required: true},
   description: {type: String, required: true},
+  messageThreads: [{type: mongoose.Schema.Types.ObjectId, ref: 'MessageThreads'}],
   active: {type: Boolean, default: true}
 }, {timestamps: true});
 

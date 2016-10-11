@@ -39,6 +39,7 @@ var userRoutes = require('./routes/users.js');
 var chatRoutes = require('./routes/messages.js');
 var authenticateRoutes = require('./routes/authenticate.js');
 var postRoutes = require('./routes/posts.js');
+var messageThreadsRoutes = require('./routes/messageThreads.js');
 // End requiring routers -->
 
 // <-- Start middleware
@@ -81,6 +82,7 @@ app.use('/', authenticateRoutes);
 app.use('/users', userRoutes);
 app.use('/chat-messages', chatRoutes);
 app.use('/posts', postRoutes);
+app.use('/threads', messageThreadsRoutes);
 
 // end using routes -->
 
