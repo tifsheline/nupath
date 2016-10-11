@@ -96,7 +96,7 @@ app.get('/chat', isLoggedIn, function(req, res){
       console.log('A user has connected.');
 
       socket.on('new-chat', function(message){
-        Message.create({content: message, public: true}, function(err, data){
+        Message.create({_by: req.user.id, content: message, public: true}, function(err, data){
           if (err){
             chat.emit('broadcast-error', err);
           } else {
