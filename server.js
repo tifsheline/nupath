@@ -10,16 +10,16 @@ var express = require('express'),
     flash = require('connect-flash'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
-    MongoStore = require('connect-mongo')(session),
     passport = require('passport'),
     passportConfig = require('./config/passport.js'),
     userRoutes = require('./routes/users.js'),
     User = require('./models/User.js')
 
-
-
 // Require chat message model
 var Message = require('./models/Message.js');
+
+
+var port = process.env.PORT || 3000;
 
 // <-- Start mongoDB connection
 mongoose.connect('mongodb://localhost/nupath', function(err, db){
@@ -38,7 +38,6 @@ var userRoutes = require('./routes/users.js');
 var chatRoutes = require('./routes/messages.js');
 var authenticateRoutes = require('./routes/authenticate.js');
 var postRoutes = require('./routes/posts.js');
-
 // End requiring routers -->
 
 // <-- Start middleware
@@ -51,8 +50,7 @@ app.use(session({
   secret: 'Tirevo',
   cookie: {maxAge: 6000000},
   resave: true,
-  saveUninitialize: false,
-  store: new MongoStore({url: 'mongodb://localhost/nupath'})
+  saveUninitialize: false
 }))
 app.use(passport.initialize());
 app.use(passport.session());
@@ -65,15 +63,9 @@ app.use(function(req, res, next){
   next()
 })
 
-function isLoggedIn(req, res, next){
-	if(req.isAuthenticated()) return next()
-	res.redirect('/login')
-}
-
 // EJS configuration
 app.set('view engine', 'ejs');
 app.use(ejsLayouts);
-
 // End middleware -->
 
 // <-- Start using routes
@@ -88,14 +80,16 @@ app.use('/users', userRoutes);
 app.use('/chat-messages', chatRoutes);
 app.use('/posts', postRoutes);
 
-app.get('/chat', isLoggedIn, function(req, res){
+// end using routes -->
+
+app.get('/chat', function(req, res){
   if(!io.nsps['/chat']){
     var chat = io.of('/chat');
     chat.on('connect', function(socket){
       console.log('A user has connected.');
 
       socket.on('new-chat', function(message){
-        Message.create({_by: req.user.id, content: message, public: true}, function(err, data){
+        Message.create({content: message, public: true}, function(err, data){
           if (err){
             chat.emit('broadcast-error', err);
           } else {
@@ -116,10 +110,10 @@ app.get('/chat', isLoggedIn, function(req, res){
 // end using routes -->
 
 
-http.listen(3000, function(err){
+http.listen(port, function(err){
   if (err) {
     console.log("Error: Could not start server.");
   } else {
-    console.log('Success: Listening on port: 3000');
+    console.log(`Success: Listening on port: ${port}`);
   }
 })
