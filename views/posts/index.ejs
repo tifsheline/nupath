@@ -1,7 +1,18 @@
 <% data.forEach(function(post) { %>
-<%= post._by.local.name %>
-<%= post.content %>
-<%= post.createdAt %>
+<%= post._by.local.name %><br />
+<%= post.content %><br />
+Post Id: <%= post._id %><br />
+User Id: <%= post._by._id %><br />
+<%= post.createdAt %><br />
 <a href="/posts/<%= post._id %>">View</a>
 <hr>
+<% post.comments.forEach(function(comment){ %>
+  <%= comment.content %><br />
+  Comment Id: <%= comment._id %><hr />
+<% }) %>
+<form class="" action="/posts/<%= post._id %>/comments" method="post">
+  <textarea name="content" rows="8" cols="40"></textarea><br>
+  <input type="submit" name="submit" value="Submit">
+</form>
+<hr />
 <% }) %>

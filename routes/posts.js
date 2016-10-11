@@ -21,9 +21,6 @@ postsRouter.route('/:id/comments')
 	 .get(commentsController.index)
 	 .post(commentsController.create);
 
-postsRouter.route('/:id/comments/new')
-	 .get(commentsController.new);
-
 postsRouter.route('/:postId/comments/:commentId')
 	  .get(commentsController.show)
 	  .patch(commentsController.update)

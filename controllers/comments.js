@@ -6,7 +6,7 @@ var User = require('../models/User.js')
 
 module.exports = {
   index: function(req, res){
-      Post.findById(req.params.id, {active: true}, function(err, data){
+      Post.findById(req.params.id, {active: true}).sort(['updatedAt', 'descending']).execFind(function(err, data){
         if (err) return res.json(err);
           res.json(data);
         });
@@ -20,10 +20,6 @@ module.exports = {
             res.json(data)
           });
         })
-  },
-
-  new: function(req, res){
-    res.render('users/comment')
   },
 
   show: function(req, res) {

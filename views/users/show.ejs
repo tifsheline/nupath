@@ -4,3 +4,12 @@ School: <%= data.local.school %> <br />
 Joined: <%= data.createdAt %> <br />
 Achievements: <%= data.achievements.length %>
 <hr>
+<% data.comments.forEach(function(comment){ %>
+  <%= comment.content %><br />
+  Comment Id: <%= comment._id %><hr />
+<% }) %>
+<form class="" action="/posts/<%= post._id %>/comments" method="post">
+  <textarea name="content" rows="8" cols="40"></textarea><br>
+  <input type="submit" name="submit" value="Submit">
+</form>
+<hr />
