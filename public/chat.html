@@ -23,8 +23,10 @@
         $('#chat-message').val('')
       })
 
-      socket.on('broadcast-chat', function(message){
-        $('#chat-container').append('<li>' + message + '</li>')
+      socket.on('broadcast-chat', function(data){
+        console.log(data.user);
+        console.log(data.message);
+        $('#chat-container').append('<li>' + data.user + ': ' + data.message + '</li>')
       })
 
     </script>

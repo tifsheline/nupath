@@ -89,7 +89,7 @@ app.get('/', function(req, res){
   res.redirect('/login')
 })
 
-app.get('/chat', function(req, res){
+app.get('/chat', isLoggedIn, function(req, res){
   if(!io.nsps['/chat']){
     var chat = io.of('/chat');
     chat.on('connect', function(socket){
@@ -100,7 +100,7 @@ app.get('/chat', function(req, res){
           if (err){
             chat.emit('broadcast-error', err);
           } else {
-            chat.emit('broadcast-chat', message);
+            chat.emit('broadcast-chat', {user: req.user.local.name, message: data.content});
           }
         })
 
@@ -115,6 +115,11 @@ app.get('/chat', function(req, res){
   res.sendFile(__dirname + '/public/chat.html');
 });
 // end using routes -->
+
+function isLoggedIn(req, res, next){
+	if(req.isAuthenticated()) return next()
+	res.redirect('/')
+}
 
 
 http.listen(port, function(err){
