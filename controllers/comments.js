@@ -13,18 +13,13 @@ module.exports = {
 },
   create: function(req, res){
     Post.findById(req.params.id, function(err, data){
-          var newComment = new Post.comments();
-          newComment.content = req.body.content;
-          newComment._by = req.user.id;
-          newComment.save(function(err){
-          if(err) return res.json(err);
+          // data._by = req.user.id;
           data.comments.push(req.body);
           data.save(function(err){
             if(err) return res.json(err);
             res.json(data)
           });
         })
-      })
   },
 
   new: function(req, res){
