@@ -82,6 +82,10 @@ app.use('/posts', postRoutes);
 
 // end using routes -->
 
+app.get('/', function(req, res){
+  res.redirect('/login')
+})
+
 app.get('/chat', function(req, res){
   if(!io.nsps['/chat']){
     var chat = io.of('/chat');
