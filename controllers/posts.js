@@ -5,18 +5,7 @@ var Post = require('../models/Post.js')
 //models exports/ POST VERBS
 module.exports = {
   index: function(req, res){
-      Post.find({active: true}, function(err, data){
-        if (err) {
-          res.json(err);
-        } else {
-          res.json(data);
-        }
-});
-},
-
-  create: function(req, res) {
-    //create(new post)
-    Post.create(req.body, function(err, data){
+    Post.find({active: true}, function(err, data){
       if (err) {
         res.json(err);
       } else {
@@ -25,6 +14,23 @@ module.exports = {
     });
   },
 
+  create: function(req, res) {
+    var newPost = new Post();
+    newPost.content = req.body.content;
+    newPost._by = req.user.id;
+    newPost.save(function(err){
+      if (err) {
+        res.json(err);
+      } else {
+        res.json(newPost)
+      }
+    })
+  },
+
+  new: function(req, res){
+    console.log('Hello');
+    res.render('users/new')
+  },
 
   show: function(req, res) {
     Post.findById(req.params.id, function(err, data) {
@@ -34,6 +40,10 @@ module.exports = {
         res.json(data);
       }
     });
+  },
+
+  edit: function(req, res){
+    res.render('users/edit')
   },
 
   update: function(req, res) {
