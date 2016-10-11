@@ -6,7 +6,7 @@ module.exports = {
     	if (err) {
       	res.json(err);
       } else {
-      	res.json(data);
+      	res.sendFile('posts/index.ejs', data);
       }
     });
   },
