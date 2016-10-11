@@ -8,7 +8,7 @@ module.exports = {
     	if (err) {
       	res.json(err);
       } else {
-      	res.sendFile(data);
+      	res.render('users/index', {data: data});
       }
     });
   },
@@ -18,7 +18,7 @@ module.exports = {
     	if (err) {
       	res.json(err);
       } else {
-      	res.json(data);
+      	res.render('users/show', {data: data});
       }
     });
   },

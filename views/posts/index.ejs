@@ -37,3 +37,11 @@
     $.ajax(opts).done(cb);
   });
 </script>
+
+<% data.forEach(function(post) { %>
+<%= post._by.local.name %>
+<%= post.content %>
+<%= post.createdAt %>
+<a href="/posts/<%= post._id %>">View</a>
+<hr>
+<% }) %>

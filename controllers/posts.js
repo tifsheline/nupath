@@ -6,11 +6,11 @@ var User = require('../models/User.js')
 //models exports/ POST VERBS
 module.exports = {
   index: function(req, res){
-    Post.find({active: true}, function(err, data){
+    Post.find({active: true}).populate('_by').exec(function(err, data){
       if (err) {
         res.json(err);
       } else {
-        res.render('posts/index', data);
+        res.render('posts/index', {data: data});
       }
     });
   },
@@ -44,11 +44,11 @@ module.exports = {
   },
 
   show: function(req, res) {
-    Post.findById(req.params.id, function(err, data) {
+    Post.findById(req.params.id).populate('_by').exec(function(err, data) {
       if (err) {
         res.json(err);
       } else {
-        res.json(data);
+        res.render('posts/show', {post: data});
       }
     });
   },
