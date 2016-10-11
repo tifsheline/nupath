@@ -2,7 +2,7 @@ var Message = require('../models/Message.js');
 
 var controller = {
   index: function(req, res){
-    Message.find({active: true}, function(err, data){
+    Message.find({active: true}).populate('_by').exec(function(err, data){
       if (err) {
         res.json(err);
       } else {
