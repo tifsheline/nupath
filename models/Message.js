@@ -1,12 +1,13 @@
 var mongoose = require('mongoose');
 
-var chatMessageSchema = mongoose.Schema({
+var messageSchema = mongoose.Schema({
   // Start add properties here
   _by: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   content: {type: String, required: true},
+  public: {type: Boolean, required: true},
   active: {type: Boolean, default: true}
 }, {timestamps: true});
 
-var ChatMessage = mongoose.model('Obj', chatMessageSchema);
+var Message = mongoose.model('Message', messageSchema);
 
-module.exports = ChatMessage;
+module.exports = Message;

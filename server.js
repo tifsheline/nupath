@@ -15,10 +15,11 @@ var express = require('express'),
     userRoutes = require('./routes/users.js'),
     User = require('./models/User.js')
 
-
-
 // Require chat message model
-var ChatMessage = require('./models/ChatMessage.js');
+var Message = require('./models/Message.js');
+
+
+var port = process.env.PORT || 3000;
 
 // <-- Start mongoDB connection
 mongoose.connect('mongodb://localhost/nupath', function(err, db){
@@ -34,9 +35,9 @@ mongoose.connect('mongodb://localhost/nupath', function(err, db){
 
 //all users route:
 var userRoutes = require('./routes/users.js');
-var chatRoutes = require('./routes/chatMessages.js');
+var chatRoutes = require('./routes/messages.js');
 var authenticateRoutes = require('./routes/authenticate.js');
-
+var postRoutes = require('./routes/posts.js');
 // End requiring routers -->
 
 // <-- Start middleware
@@ -65,7 +66,6 @@ app.use(function(req, res, next){
 // EJS configuration
 app.set('view engine', 'ejs');
 app.use(ejsLayouts);
-
 // End middleware -->
 
 // <-- Start using routes
@@ -78,6 +78,9 @@ app.use(ejsLayouts);
 app.use('/', authenticateRoutes);
 app.use('/users', userRoutes);
 app.use('/chat-messages', chatRoutes);
+app.use('/posts', postRoutes);
+
+// end using routes -->
 
 app.get('/', function(req, res){
   res.redirect('/login')
@@ -90,7 +93,7 @@ app.get('/chat', function(req, res){
       console.log('A user has connected.');
 
       socket.on('new-chat', function(message){
-        ChatMessage.create({content: message}, function(err, data){
+        Message.create({content: message, public: true}, function(err, data){
           if (err){
             chat.emit('broadcast-error', err);
           } else {
@@ -110,21 +113,11 @@ app.get('/chat', function(req, res){
 });
 // end using routes -->
 
-// <-- Start socket io
-io.on('connect', function(socket){
-  console.log('A user connected.');
 
-  socket.on('disconnect', function(){
-    console.log('A user disconnected');
-  })
-});
-
-// End socket io -->
-
-http.listen(3000, function(err){
+http.listen(port, function(err){
   if (err) {
     console.log("Error: Could not start server.");
   } else {
-    console.log("Success: Listening on port 3000.");
+    console.log(`Success: Listening on port: ${port}`);
   }
 })
