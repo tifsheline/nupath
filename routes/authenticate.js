@@ -17,7 +17,7 @@ authenticateRouter.route('/signup')
 }));
 
 authenticateRouter.get('/profile', isLoggedIn, function(req, res){
-	res.render('profile', {user: req.user})
+	res.render('authenticate/profile', {user: req.user})
 })
 
 authenticateRouter.get('/logout', function(req, res){

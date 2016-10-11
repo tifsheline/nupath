@@ -79,6 +79,10 @@ app.use('/', authenticateRoutes);
 app.use('/users', userRoutes);
 app.use('/chat-messages', chatRoutes);
 
+app.get('/', function(req, res){
+  res.redirect('/login')
+})
+
 app.get('/chat', function(req, res){
   if(!io.nsps['/chat']){
     var chat = io.of('/chat');
