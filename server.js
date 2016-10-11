@@ -19,6 +19,8 @@ var express = require('express'),
 var Message = require('./models/Message.js');
 
 
+var port = process.env.PORT || 3000;
+
 // <-- Start mongoDB connection
 mongoose.connect('mongodb://localhost/nupath', function(err, db){
   if (err) {
@@ -108,10 +110,10 @@ app.get('/chat', function(req, res){
 // end using routes -->
 
 
-http.listen(3000, function(err){
+http.listen(port, function(err){
   if (err) {
     console.log("Error: Could not start server.");
   } else {
-    console.log('Success: Listening on port: 3000');
+    console.log(`Success: Listening on port: ${port}`);
   }
 })

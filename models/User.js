@@ -10,6 +10,7 @@ var userSchema = mongoose.Schema({
     password: String,
     school: String
   },
+  post: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
   active: {type: Boolean, default: true}
 }, {timestamps: true});
 
