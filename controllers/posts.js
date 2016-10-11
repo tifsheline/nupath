@@ -43,11 +43,11 @@ module.exports = {
   },
 
   show: function(req, res) {
-    Post.findById(req.params.id, function(err, data) {
+    Post.findById(req.params.id).populate('_by').exec(function(err, data) {
       if (err) {
         res.json(err);
       } else {
-        res.json(data);
+        res.render('posts/show', {post: data});
       }
     });
   },
