@@ -1,18 +1,19 @@
 //Comment controllers
 var Post = require('../models/Post.js');
+var User = require('../models/User.js')
 
 //models exports/ Comment VERBS
 
 module.exports = {
   index: function(req, res){
-      Post.findById(req.params.id, {active: true}, function(err, data){
+      Post.findById(req.params.id, {active: true}).sort(['updatedAt', 'descending']).execFind(function(err, data){
         if (err) return res.json(err);
           res.json(data);
         });
 },
   create: function(req, res){
     Post.findById(req.params.id, function(err, data){
-          if(err) return res.json(err);
+          // data._by = req.user.id;
           data.comments.push(req.body);
           data.save(function(err){
             if(err) return res.json(err);

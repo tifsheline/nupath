@@ -3,15 +3,15 @@
 var mongoose = require('mongoose');
 
 var commentSchema = mongoose.Schema({
+  content: {type: String, trim: true},
   _by: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-  content: String,
   active: {type: Boolean, default: true}
   },
 {timestamps: true});
 
 var postSchema = mongoose.Schema({
   _by: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-  content: String,
+  content: {type: String, trim: true},
   comments: [commentSchema],
   active: {type: Boolean, default: true}
 },

@@ -8,7 +8,7 @@ postsRouter.route('/')
 
 	 postsRouter.route('/new')
 	 .get(postsController.new);
-	 
+
 postsRouter.route('/:id')
 	  .get(postsController.show)
 	  .patch(postsController.update)
