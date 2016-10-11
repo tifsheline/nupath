@@ -10,6 +10,7 @@ var express = require('express'),
     flash = require('connect-flash'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
+    MongoStore = require('connect-mongo')(session),
     passport = require('passport'),
     passportConfig = require('./config/passport.js'),
     userRoutes = require('./routes/users.js'),
@@ -17,12 +18,12 @@ var express = require('express'),
 
 // Require chat message model
 var Message = require('./models/Message.js');
-
+var mongoConnection = 'mongodb://localhost/nupath';
 
 var port = process.env.PORT || 3000;
 
 // <-- Start mongoDB connection
-mongoose.connect('mongodb://localhost/nupath', function(err, db){
+mongoose.connect(mongoConnection, function(err, db){
   if (err) {
     console.log("Error: Could not connect to MongoDB.");
   } else {
@@ -43,14 +44,15 @@ var postRoutes = require('./routes/posts.js');
 // <-- Start middleware
 
 app.use(logger('dev'));
-app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(session({
   secret: 'Tirevo',
   cookie: {maxAge: 6000000},
   resave: true,
-  saveUninitialize: false
+  saveUninitialize: false,
+  store: new MongoStore({url: mongoConnection})
 }))
 app.use(passport.initialize());
 app.use(passport.session());
@@ -83,6 +85,7 @@ app.use('/posts', postRoutes);
 // end using routes -->
 
 app.get('/', function(req, res){
+  if(req.app.locals.loggedIn) return res.redirect('/profile')
   res.redirect('/login')
 })
 
