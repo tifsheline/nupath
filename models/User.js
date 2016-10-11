@@ -19,7 +19,7 @@ var userSchema = mongoose.Schema({
   },
   posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
   achievements: [achievementSchema],
-  messageThreads: [{type: mongoose.Schema.Types.ObjectId, ref: 'MessageThreads'}],
+  messageThreads: [{type: mongoose.Schema.Types.ObjectId, ref: 'MessageThread'}],
   active: {type: Boolean, default: true}
 }, {timestamps: true});
 

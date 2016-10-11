@@ -16,6 +16,8 @@ userRouter.get('/new', usersController.new);
 
 userRouter.get('/:id/edit', usersController.edit);
 
+userRouter.get('/:id/threads', usersController.threads);
+
 userRouter.get('/:id/achievements', achievementsController.index);
 userRouter.post('/:id/achievements', achievementsController.create);
 userRouter.get('/:id/achievements/new', achievementsController.new);

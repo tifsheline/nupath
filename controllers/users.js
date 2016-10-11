@@ -67,5 +67,15 @@ module.exports = {
 
   signup: function(req, res){
     res.render('authenticate/signup', {message: req.flash('signupMessage')})
+  },
+
+  threads: function(req, res){
+    User.findById(req.params.id).populate('messageThreads').exec(function(err, data){
+      if (err) {
+        res.json(err);
+      } else {
+        res.json(data.messageThreads);
+      }
+    })
   }
 }
