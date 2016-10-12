@@ -27,10 +27,5 @@ userRouter.route('/:id/achievements/:achId')
 					.patch(achievementsController.update)
 					.delete(achievementsController.delete);
 
-// userRouter.get('/:id/achievements', achievementsController.index);
-// userRouter.post('/:id/achievements', achievementsController.create);
-// userRouter.get('/:id/achievements/:achId', achievementsController.show);
-// userRouter.patch('/:id/achievements/:id', achievementsController.update);
-// userRouter.delete('/:id/achievements/:achId', achievementsController.delete);
 
 module.exports = userRouter;
