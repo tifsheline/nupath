@@ -6,7 +6,7 @@ module.exports = {
       if (err) {
         res.json(err);
       } else {
-        res.json(data.achievements);
+        res.render('authenticate/profile', data.achievements);
       }
     })
   },
@@ -45,6 +45,6 @@ module.exports = {
   },
 
   delete: function(req, res) {
-    
+
   }
 };

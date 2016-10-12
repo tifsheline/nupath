@@ -8,7 +8,7 @@ var
   })
 
   passport.deserializeUser(function(id, done){
-    User.findById(id, function(err, user){
+    User.findById(id).populate('posts').exec(function(err, user){
       done(err, user)
     })
   })
@@ -47,6 +47,7 @@ passport.use('local-login', new LocalStrategy({
 }, function(req, email, password, done){
   //make sure user exists by searching DB
   User.findOne({'local.email': email}, function(err, user){
+    console.log({user: user})
     if(err) return done(err)
     //no user found, flash:
     if(!user) return done(null, false)

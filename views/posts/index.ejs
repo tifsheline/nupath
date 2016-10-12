@@ -3,7 +3,7 @@
 <label class="sr-only" for="inputHelpBlock">nUPath Newsfeed</label>
 <textarea id="post" class="form-control" rows="3"></textarea>
 <br />
-<button id="post-btn" type="button" class="btn btn-success">Post</button>
+
 <br /><hr /><br />
 <div class="panel-body">
 <% data.forEach(function(post) { %>
@@ -14,6 +14,7 @@ User Id: <%= post._by._id %><br />
 <%= post.createdAt %><br />
 <a href="/posts/<%= post._id %>">View</a>
 <hr>
+<span class="help-block">Comment on this post!</span>
 <% post.comments.forEach(function(comment){ %>
   <% if (comment.active) {%>
   <%= comment.content %><br />
