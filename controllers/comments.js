@@ -23,7 +23,7 @@ module.exports = {
   },
 
   show: function(req, res) {
-    Post.findById(req.params.postId, function(err, data){
+    Post.findById(req.params.postId).populate('users').exec(function(err, data){
       if(err) return res.json(err);
       res.json(data.comments.id(req.params.commentId))
     })
