@@ -4,6 +4,7 @@ var express = require('express'),
     io = require('socket.io')(http),
     logger = require('morgan'),
     mongoose = require('mongoose'),
+    methodOveride = require('method-override'),
     bodyParser = require('body-parser'),
     ejs = require('ejs'),
     ejsLayouts = require('express-ejs-layouts'),
@@ -46,6 +47,7 @@ var messageThreadsRoutes = require('./routes/messageThreads.js');
 
 app.use(logger('dev'));
 app.use(cookieParser());
+app.use(methodOveride('_method'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(session({

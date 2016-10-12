@@ -6,7 +6,7 @@ var User = require('../models/User.js')
 
 module.exports = {
   index: function(req, res){
-      Post.findById(req.params.id, {active: true}).sort(['updatedAt', 'descending']).execFind(function(err, data){
+      Post.findById(req.params.id, {active: true}).exec(function(err, data){
         if (err) return res.json(err);
           res.json(data);
         });
@@ -44,13 +44,17 @@ module.exports = {
 
     destroy: function(req, res) {
       //delete a comment
-      Post.findById(req.params.postId, function(err, data){
-        if(err) return res.json(err);
-        data.comments.id(req.params.commentId).remove()
-        data.save(function(){
-          if(err) return res.json(err);
-          res.json(data)
-        })
-      })
+      Post.findById(req.params.postId, function(err, data) {
+        if (err) {
+          res.json(err);
+        } else {
+          var comment = data.comments.id(req.params.commentId);
+          comment.active = false;
+          data.save(function(err){
+            if(err) return res.json(err);
+            res.json(data)
+          });
+        }
+      });
     }
 };
