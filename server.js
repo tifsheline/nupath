@@ -81,6 +81,8 @@ app.use(ejsLayouts);
 // });
 //
 app.use('/', authenticateRoutes);
+
+app.use(isLoggedIn);
 app.use('/users', userRoutes);
 app.use('/chat-messages', chatRoutes);
 app.use('/posts', postRoutes);
@@ -88,12 +90,12 @@ app.use('/threads', messageThreadsRoutes);
 
 // end using routes -->
 
-app.get('/', function(req, res){
-  if(req.app.locals.loggedIn) return res.redirect('/profile')
-  res.redirect('/login')
-})
+// app.get('/', function(req, res){
+//   if(req.app.locals.loggedIn) return res.redirect('/profile')
+//   res.redirect('/login')
+// })
 
-app.get('/chat', isLoggedIn, function(req, res){
+app.get('/chat', function(req, res){
   if(!io.nsps['/chat']){
     var chat = io.of('/chat');
     chat.on('connect', function(socket){
@@ -122,7 +124,7 @@ app.get('/chat', isLoggedIn, function(req, res){
 
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()) return next()
-	res.redirect('/')
+	res.redirect('/login')
 }
 
 
