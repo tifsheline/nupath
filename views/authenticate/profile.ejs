@@ -43,3 +43,43 @@
 </div>
 
 <hr>
+
+
+<% user.achievements.forEach(function(el){ %>
+  <% if(el.active) { %>
+  <h4>Title: <%= el.title%></h4>
+  <b>Year: <%= el.year%></b> <br>
+  Description: <%= el.description%> <br>
+
+  <form class="" action="/users/<%= user._id %>/achievements/<%= el._id %>?_method=delete" method="post">
+  <input class="btn btn-danger" type="submit" name="submit" value="Delete Achievements">
+  </form>
+  <hr>
+  <% } %>
+
+<% }) %>
+<button class="btn btn-info">Submit Achievements</button>
+<p>
+
+</p>
+<div id="no-way" class="toggle-form">
+  <form class="" action="/users/<%= user._id %>/achievements" method="post">
+  <span class="help-block">Year:</span>
+  <input class="achievement form-control" name="year" />
+  <br />
+  <span class="help-block">Title:</span>
+  <input class="achievement form-control" name="title" />
+  <br />
+  <span class="help-block">Description:</span>
+  <textarea class="achievement form-control" name="description" rows="7"></textarea><br>
+    <input class="btn btn-success" type="submit" name="submit" value="Post Achievements">
+  </form>
+  <br />
+</div>
+<hr>
+
+<script type="text/javascript">
+  $('.btn-info').click(function(evnt){
+      $('#no-way').toggleClass('toggle-form');
+  })
+</script>
