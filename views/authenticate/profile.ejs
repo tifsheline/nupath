@@ -9,8 +9,6 @@
     <div class="col-sm-6 col-sm-offset-3">
         <div class="well">
 
-            <%# <h3>Locally Stored User</h3>%>
-
             <p>
                 <strong>Name</strong>: <%= user.local.name %><br>
                 <strong>id</strong>: <%= user._id %><br>
@@ -20,4 +18,28 @@
 
         </div>
     </div>
+</div>
+
+<hr>
+
+<div class="panel-body">
+  <% user.posts.forEach(function(post){ %>
+      <%= post.content %><br />
+      Post Id: <%= post._id %><br />
+      User Id: <%= post._by._id %><br />
+      <%= post.createdAt %><br />
+      <a href="/posts/<%= post._id %>">View</a>
+      <hr>
+      <span class="help-block">Comment on this post!</span>
+      <% post.comments.forEach(function(comment){ %>
+        <%= comment.content %><br />
+        Comment Id: <%= comment._id %><hr />
+      <% }) %>
+      <form class="" action="/posts/<%= post._id %>/comments" method="post">
+        <textarea id="post" class="form-control" rows="2"></textarea><br>
+        <input type="submit" name="submit" value="Submit">
+      </form>
+      <hr />
+
+  <% }) %>
 </div>
