@@ -13,11 +13,17 @@ Joined: <%= data.createdAt %> <br />
 <h3 class="help-block">Achievements:</h3> <br>
 
 <% data.achievements.forEach(function(el){ %>
+  <% if(el.active) { %>
   <h4>Title: <%= el.title%></h4>
   <b>Year: <%= el.year%></b> <br>
   Description: <%= el.description%> <br>
+  <form class="" action="/users/<%= data._id %>/achievements/<%= el._id %>?_method=delete" method="post">
+  <input class="btn btn-danger" type="submit" name="submit" value="Delete Archive">
+  </form>
   <hr>
+  <% } %>
 <% }) %>
+
 
 <form class="" action="/users/<%= data._id %>/achievements" method="post">
 <span class="help-block">Year:</span>
