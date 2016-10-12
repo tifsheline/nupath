@@ -1,33 +1,45 @@
 <head>
   <style media="screen">
 
-  .bckg_img{
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 240px;
+.bckg-img{
+    min-height: 100%;
+    min-width: 1024px;
     width: 100%;
-    margin-left: 400px;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -9999;
   }
   body{
     font-size: 20px;
     color: #01E895;
   }
   h1{
-    font-size: 50px;
+    font-size: 60px;
+    font-weight: 900;
   }
+  #login{
+    height: 400px;
+    width: 400px;
+    float: right;
+  }
+  p{
+    font-size: 30px;
+  }
+
   </style>
 </head>
 
 <body>
 
-  <h1 class="text-center">nUPath<br><small> A step up towards your new path.</small></h1>
+  <h1 class="text-center">nUPath<small> A step up towards your new path.</small></h1>
 
-  <div class="bckg_img">
-    <img src="http://1.bp.blogspot.com/-puClaSUqA8A/U9-I_sbVFAI/AAAAAAAAGRg/E84VZtL8sTM/s1600/education_books.png" alt="edu-path" />
+  <div>
+    <img src="http://wholeheartsfamilycenter.com/wp-content/uploads/2015/03/26.jpg" class="bckg-img" />
   </div>
 
-<div class="text-center">
+<div id="login" class="text-center">
     <h1>Login</h1>
 
     <form action="/login" method="post">
