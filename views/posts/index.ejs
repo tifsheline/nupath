@@ -1,7 +1,7 @@
 <hr>
 <label class="sr-only" for="inputHelpBlock">nUPath Newsfeed</label>
 <textarea id="post" class="form-control" rows="3"></textarea>
-<span id="helpBlock" class="help-block">Post your comments and questions here.</span>
+<span id="helpBlock" class="help-block">Post your questions and comments here.</span>
 
 <br>
 
@@ -16,6 +16,7 @@ User Id: <%= post._by._id %><br />
 <%= post.createdAt %><br />
 <a href="/posts/<%= post._id %>">View</a>
 <hr>
+<span class="help-block">Comment on this post!</span>
 <% post.comments.forEach(function(comment){ %>
   <%= comment.content %><br />
   Comment Id: <%= comment._id %><hr />

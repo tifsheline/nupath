@@ -8,6 +8,7 @@ module.exports = {
     	if (err) {
       	res.json(err);
       } else {
+        console.log(data)
       	res.render('users/index', {data: data});
       }
     });
