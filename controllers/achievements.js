@@ -1,4 +1,4 @@
-var User = require('../models/User.js')
+var User = require('../models/User.js');
 
 module.exports = {
   index: function(req, res){
@@ -6,7 +6,7 @@ module.exports = {
       if (err) {
         res.json(err);
       } else {
-        res.render('authenticate/profile', data.achievements);
+        res.json(data);
       }
     })
   },
@@ -17,6 +17,7 @@ module.exports = {
         res.json(err);
       } else {
         data.achievements.push(req.body);
+        console.log(data.achievements)
         data.save(function(err){
           if (err) {
             res.json(err);

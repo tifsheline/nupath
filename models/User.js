@@ -3,8 +3,8 @@ var
   bcrypt = require('bcrypt-nodejs')
 
 var achievementSchema = mongoose.Schema({
-  year: {type: Number, required: true},
-  title: {type: String, required: true},
+  year: {type: Number, required: true, trim:true},
+  title: {type: String, required: true, trim: true},
   description: {type: String, required: true},
   active: {type: Boolean, default: true}
 }, {timestamps: true});
