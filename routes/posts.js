@@ -6,8 +6,8 @@ postsRouter.route('/')
 	 .get(postsController.index)
 	 .post(postsController.create);
 
-	 postsRouter.route('/new')
-	 .get(postsController.new);
+	//  postsRouter.route('/new')
+	//  .get(postsController.new);
 
 postsRouter.route('/:id')
 	  .get(postsController.show)
