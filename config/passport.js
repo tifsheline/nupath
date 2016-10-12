@@ -8,7 +8,7 @@ var
   })
 
   passport.deserializeUser(function(id, done){
-    User.findById(id).populate('posts').exec(function(err, user){
+    User.findById(id).populate({path: 'messageThreads', populate: {path: 'users messages'}}).exec(function(err, user){
       done(err, user)
     })
   })

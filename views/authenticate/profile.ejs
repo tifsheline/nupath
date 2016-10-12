@@ -19,5 +19,26 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="well">
+            <% user.messageThreads.forEach(function(el){%>
+            <p>
+                FROM: <% if (el.users[0]._id.toString() != currentUser._id.toString()) { %>
+                  <%= el.users[0].local.name %>
+                <% } else { %>
+                  <%= el.users[1].local.name %>
+                <% } %> <br>
+                <% if(el.messages[el.messages.length - 1]) { %>
+                  <%= el.messages[el.messages.length - 1].content %>
+                <% } else { %>
+                  Say hello!
+                <% } %> <br>
+                <%= el.createdAt %>
+            </p>
+            <% }) %>
+        </div>
+    </div>
+</div>
 
 <hr>
