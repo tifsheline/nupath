@@ -1,4 +1,6 @@
-var express = require('express'),
+var
+    dotenv = require('dotenv').load({silent: true}),
+    express = require('express'),
     app = express(),
     http = require('http').Server(app),
     io = require('socket.io')(http),
@@ -19,12 +21,13 @@ var express = require('express'),
 
 // Require chat message model
 var Message = require('./models/Message.js');
-var mongoConnection = 'mongodb://localhost/nupath';
+var mongoConnection = process.env.MONGO_URL;
 
 var port = process.env.PORT || 3000;
 
 // <-- Start mongoDB connection
 mongoose.connect(mongoConnection, function(err, db){
+  console.log(mongoConnection);
   if (err) {
     console.log("Error: Could not connect to MongoDB.");
   } else {
