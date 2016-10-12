@@ -5,3 +5,11 @@
 body {
   font-family: 'Comfortaa', cursive;
 }
+
+form {
+  display: inline;
+}
+
+.btn-default{
+  background-color: pink;
+}
