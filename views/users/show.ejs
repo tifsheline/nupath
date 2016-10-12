@@ -22,8 +22,6 @@ Joined: <%= data.createdAt %> <br />
 
 <% }) %>
 
-<%= data.posts %>
-
 <div class="panel-body">
   <% data.posts.forEach(function(post){ %>
     <h3 class="help-block">Post:</h3> <br>
@@ -36,7 +34,7 @@ Joined: <%= data.createdAt %> <br />
     <span class="help-block"><u>Comment on this post!</u></span><br />
     <% post.comments.forEach(function(comment){ %>
       <% if (comment.active) {%>
-      <%= data.posts._id %>
+      <%= comment._by %><br />
       <%= comment.content %><br />
       Comment Id: <%= comment._id %><br />
       <form class="" action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=delete" method="post">

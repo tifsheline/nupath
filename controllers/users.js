@@ -20,6 +20,7 @@ module.exports = {
       	res.json(err);
       } else {
       	res.render('users/show', {data: data});
+        // res.json({user:data})
       }
     });
   },

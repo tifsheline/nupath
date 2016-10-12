@@ -14,7 +14,11 @@ module.exports = {
   create: function(req, res){
     Post.findById(req.params.id, function(err, data){
           // data._by = req.user.id;
-          data.comments.push(req.body);
+          var newComment = new Object();
+          newComment.content = req.body.content;
+          newComment._by = req.user.id;
+
+          data.comments.push(newComment);
           data.save(function(err){
             if(err) return res.json(err);
             res.json(data)
