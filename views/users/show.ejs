@@ -8,8 +8,8 @@ Joined: <%= data.createdAt %> <br />
 <form class="" action="/threads/new/<%= currentUser._id%>/<%= data._id%>" method="post">
   <input type="submit" name="name" value="Message">
 </form>
+<hr />
 <% } %>
-
 <h3 class="help-block">Achievements:</h3> <br>
 
 <% data.achievements.forEach(function(el){ %>
@@ -18,24 +18,13 @@ Joined: <%= data.createdAt %> <br />
   <b>Year: <%= el.year%></b> <br>
   Description: <%= el.description%> <br>
   <form class="" action="/users/<%= data._id %>/achievements/<%= el._id %>?_method=delete" method="post">
-  <input class="btn btn-danger" type="submit" name="submit" value="Delete Archive">
+  <input class="btn btn-danger" type="submit" name="submit" value="Delete Achievements">
   </form>
   <hr>
   <% } %>
+
 <% }) %>
 
-
-<form class="" action="/users/<%= data._id %>/achievements" method="post">
-<span class="help-block">Year:</span>
-<input id="achievement" name="year" class="form-control" />
-<br />
-<span class="help-block">Title:</span>
-<input id="achievement" name="title" class="form-control" />
-<br />
-<span class="help-block">Description:</span>
-<textarea id="achievement" name="description" class="form-control" rows="7"></textarea><br>
-  <input class="btn btn-success" type="submit" name="submit" value="Post Achievements">
-</form>
 <hr>
 
 <div class="panel-body">
