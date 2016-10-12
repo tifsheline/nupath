@@ -20,8 +20,8 @@ userRouter.get('/:id/threads', usersController.threads);
 
 userRouter.get('/:id/achievements', achievementsController.index);
 userRouter.post('/:id/achievements', achievementsController.create);
-userRouter.get('/:id/achievements/new', achievementsController.new);
+userRouter.get('/:id/achievements/:achId', achievementsController.show);
 userRouter.patch('/:id/achievements/:id', achievementsController.update);
-userRouter.delete('/:id/achievements/:id', achievementsController.delete);
+userRouter.delete('/:id/achievements/:achId', achievementsController.delete);
 
 module.exports = userRouter;
