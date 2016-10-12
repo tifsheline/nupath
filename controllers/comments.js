@@ -15,9 +15,10 @@ module.exports = {
     Post.findById(req.params.id, function(err, data){
           // data._by = req.user.id;
           data.comments.push(req.body);
+          var newComment = data.comments[data.comments.length - 1];
           data.save(function(err){
             if(err) return res.json(err);
-            res.json(data)
+            res.json(newComment)
           });
         })
   },
