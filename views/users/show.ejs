@@ -24,38 +24,41 @@ Joined: <%= data.createdAt %> <br />
 
 <div class="panel-body">
   <% data.posts.forEach(function(post){ %>
-    <h3 class="help-block">Post:</h3> <br>
-    <h4>Name: <%= post.content %></h4>
-    Post Id: <%= post._id %><br />
-    User Id: <%= data.local.name %><br />
-    <%= post.createdAt %><br /><br />
-    <a href="/posts/<%= post._id %>">View</a>
-    <hr>
-    <span class="help-block"><u>Comment on this post!</u></span><br />
-    <% post.comments.forEach(function(comment){ %>
-      <% if (comment.active) {%>
-      <strong><%= comment._by.local.name %></strong>:&#8195;
-      <%= comment.content %><br />
-      Comment Id: <%= comment._id %><br />
+    <% if(post.active) { %>
+      <div id="<%= post._id %>" class="post">
+        <h3 class="help-block">Post:</h3> <br>
+        <h4>Name: <%= post.content %></h4>
+        Post Id: <%= post._id %><br />
+        User Id: <%= data.local.name %><br />
+        <%= post.createdAt %><br /><br />
+        <a href="/posts/<%= post._id %>">View</a>
+        <hr>
+        <span class="help-block"><u>Comment on this post!</u></span><br />
+        <% post.comments.forEach(function(comment){ %>
+          <% if (comment.active) {%>
+          <strong><%= comment._by.local.name %></strong>:&#8195;
+          <%= comment.content %><br />
+          Comment Id: <%= comment._id %><br />
 
-      <% if (currentUser._id.toString() == data._id.toString()) {%>
-      <form class="" action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=delete" method="post">
-        <input class="btn btn-danger" type="submit" name="submit" value="Delete">
-      </form>
+          <% if (currentUser._id.toString() == data._id.toString()) {%>
+          <form class="" action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=delete" method="post">
+            <input class="btn btn-danger" type="submit" name="submit" value="Delete">
+          </form>
+          <% } %>
+          <hr />
+          <% } %>
+        <% }) %>
+        <form class="" action="/posts/<%= post._id %>/comments" method="post">
+          <textarea id="comment" name="content" class="form-control" rows="2"></textarea><br>
+          <input class="btn btn-success" type="submit" name="submit" value="Post">
+        </form>
+
+        <form class="" action="/posts/<%= post._id %>?_method=delete" method="post">
+          <input class="btn btn-danger" type="submit" name="submit" value="Delete">
+        </form>
+
+        <hr />
+        </div>
       <% } %>
-      <hr />
-      <% } %>
-    <% }) %>
-    <form class="" action="/posts/<%= post._id %>/comments" method="post">
-      <textarea id="comment" name="content" class="form-control" rows="2"></textarea><br>
-      <input class="btn btn-success" type="submit" name="submit" value="Post">
-    </form>
-
-    <form class="" action="/posts/<%= post._id %>?_method=delete" method="post">
-      <input class="btn btn-danger" type="submit" name="submit" value="Delete">
-    </form>
-
-    <hr />
-
   <% }) %>
 </div>
