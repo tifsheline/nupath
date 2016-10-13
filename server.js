@@ -64,6 +64,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(express.static('public'))
 
 // Add a current user to be available in every view
 app.use(function(req, res, next){
