@@ -3,27 +3,16 @@
   <%= post.content %>
   <%= post.createdAt %><br />
 
-
-  <%var count =0%>
-  <% post.comments.forEach(function(activeComment) { %>
-  <% if(activeComment.active == true){ %>
-  <%  count++; %>
-  <%  if(count < 2){ %>
-  <%=  count %> Comment
-  <%  }else{ %>
-  <%=  count %> Comments
-  <%  }}}) %>
-
   <hr>
   <div class="comments">
     <span class="help-block">Comment on this post!</span>
     <% post.comments.forEach(function(comment){ %>
         <% if (comment.active) {%>
           <div id="<%= comment._id %>">
-          <strong><%= post._by %></strong>:&#8195;
+          <strong><%= comment._by.local.name %></strong>:&#8195;
           <%= comment.content %><br />
           <p>Comment Id: <%= comment._id %><br /></p>
-          <% if (currentUser._id.toString() == post._by._id.toString()) {%>
+          <% if (currentUser._id.toString() == comment._by._id.toString()) {%>
           <input class="btn btn-danger btn-delete-comment" type="submit" name="submit" value="Delete Comment">
           <% } %>
           <hr />
@@ -76,14 +65,4 @@
     $.ajax(opts).done(cb);
   });
 
-
-  var count =0;
-  post.comments.forEach(function(activeComment) {
-  if(activeComment.active == true){
-   count++;
-   if(count < 2){
-   $('.ganey').html(`${count} comment`)
-   }else{
-   $('.ganey').html(`${count} comments`)
-  }}})
 </script>
