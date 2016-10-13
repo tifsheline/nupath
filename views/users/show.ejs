@@ -34,7 +34,7 @@ Joined: <%= data.createdAt %> <br />
     <span class="help-block"><u>Comment on this post!</u></span><br />
     <% post.comments.forEach(function(comment){ %>
       <% if (comment.active) {%>
-      <b><%= comment._by.local.name %></b>:&#8195;
+      <strong><%= comment._by.local.name %></strong>:&#8195;
       <%= comment.content %><br />
       Comment Id: <%= comment._id %><br />
 
