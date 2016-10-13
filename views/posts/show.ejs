@@ -1,15 +1,65 @@
-<%= post._by.local.name %>
-<%= post.content %>
-<%= post.createdAt %>
-<%= post.comments.length %> comments
+<div id="<%= post._id %>">
+  <%= post._by.local.name %>
+  <%= post.content %>
+  <%= post.createdAt %>
+  <%= post.comments.length %> comments
 
-<hr>
-<% post.comments.forEach(function(comment){ %>
-  <%= comment.content %><br />
-  Comment Id: <%= comment._id %><hr />
-<% }) %>
-<form class="" action="/posts/<%= post._id %>/comments" method="post">
-  <textarea id="comment" name="content" class="form-control" rows="2"></textarea><br>
-  <input class="btn btn-success" type="submit" name="submit" value="Post">
-</form>
-<hr />
+  <hr>
+  <div class="comments">
+    <span class="help-block">Comment on this post!</span>
+    <% post.comments.forEach(function(comment){ %>
+        <% if (comment.active) {%>
+          <div id="<%= comment._id %>">
+          <p><%= comment.content %><br /></p>
+          <p>Comment Id: <%= comment._id %><br /></p>
+          <input class="btn btn-danger btn-delete-comment" type="submit" name="submit" value="Delete Comment">
+          <hr />
+        </div>
+      <% } %>
+    <% }) %>
+  </div>
+  <textarea id="comment" name="content" class="form-control input-new-comment" rows="2"></textarea><br>
+  <input class="btn btn-success btn-new-comment" type="submit" name="submit" value="Post Comment">
+  <hr />
+</div>
+<script type="text/javascript">
+  $('body').on('click', '.btn-new-comment', function(evt){
+    evt.preventDefault();
+    var postId = $(evt.target).parent()[0].id;
+    var comment = $(evt.target).siblings('.input-new-comment');
+    var opts = {
+      method: 'post',
+      url: '/posts/' + postId + '/comments',
+      contentType: 'application/json',
+      data: JSON.stringify({content: comment.val()})
+    };
+    var cb = function(data){
+      comment.val('');
+      var newComment = '';
+      newComment += '<div id="' + data._id + '">';
+      newComment += '<p>' + data.content + '</p>';
+      newComment += '<p>Comment Id: ' + data._id + '</p>';
+      newComment += '<input class="btn btn-danger btn-delete-comment" type="submit" name="submit" value="Delete Comment">'
+      newComment += '<hr />';
+      newComment += '<div>';
+
+      $('.comments').append(newComment);
+    };
+    $.ajax(opts).done(cb);
+  });
+
+  $('body').on('click', '.btn-delete-comment', function(evt){
+    evt.preventDefault();
+    var postId = $(evt.target).parent().parent().parent()[0].id;
+    var commentId = $(evt.target).parent()[0].id;
+
+    var opts = {
+      method: 'delete',
+      url: '/posts/' + postId + '/comments/' + commentId
+    };
+    var cb = function(data){
+      $('#' + commentId).remove();
+    };
+    $.ajax(opts).done(cb);
+  });
+</script>

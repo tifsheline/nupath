@@ -14,16 +14,20 @@ module.exports = {
   create: function(req, res){
     Post.findById(req.params.id, function(err, data){
           // data._by = req.user.id;
-          data.comments.push(req.body);
+          var newComment = new Object();
+          newComment.content = req.body.content;
+          newComment._by = req.user.id;
+          data.comments.push(newComment);
+          var newComment = data.comments[data.comments.length - 1];
           data.save(function(err){
             if(err) return res.json(err);
-            res.json(data)
+            res.json(newComment)
           });
         })
   },
 
   show: function(req, res) {
-    Post.findById(req.params.postId, function(err, data){
+    Post.findById(req.params.postId).populate('users').exec(function(err, data){
       if(err) return res.json(err);
       res.json(data.comments.id(req.params.commentId))
     })

@@ -53,6 +53,7 @@ app.use(cookieParser());
 app.use(methodOveride('_method'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(express.static('public'));
 app.use(session({
   secret: 'Tirevo',
   cookie: {maxAge: 6000000},

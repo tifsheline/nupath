@@ -6,10 +6,10 @@ Joined: <%= data.createdAt %> <br />
 <hr>
 <% if (currentUser && currentUser._id.toString() != data._id.toString()) { %>
 <form class="" action="/threads/new/<%= currentUser._id%>/<%= data._id%>" method="post">
-  <input type="submit" name="name" value="Message">
+  <input class="btn btn-default" type="submit" name="name" value="Message">
 </form>
+<hr />
 <% } %>
-
 <h3 class="help-block">Achievements:</h3> <br>
 
 <% data.achievements.forEach(function(el){ %>
@@ -17,38 +17,24 @@ Joined: <%= data.createdAt %> <br />
   <h4>Title: <%= el.title%></h4>
   <b>Year: <%= el.year%></b> <br>
   Description: <%= el.description%> <br>
-  <form class="" action="/users/<%= data._id %>/achievements/<%= el._id %>?_method=delete" method="post">
-  <input class="btn btn-danger" type="submit" name="submit" value="Delete Archive">
-  </form>
   <hr>
   <% } %>
+
 <% }) %>
-
-
-<form class="" action="/users/<%= data._id %>/achievements" method="post">
-<span class="help-block">Year:</span>
-<input id="achievement" name="year" class="form-control" />
-<br />
-<span class="help-block">Title:</span>
-<input id="achievement" name="title" class="form-control" />
-<br />
-<span class="help-block">Description:</span>
-<textarea id="achievement" name="description" class="form-control" rows="7"></textarea><br>
-  <input class="btn btn-success" type="submit" name="submit" value="Post Achievements">
-</form>
-<hr>
 
 <div class="panel-body">
   <% data.posts.forEach(function(post){ %>
-
+    <h3 class="help-block">Post:</h3> <br>
+    <h4>Name: <%= post.content %></h4>
     Post Id: <%= post._id %><br />
     User Id: <%= post._by %><br />
     <%= post.createdAt %><br /><br />
     <a href="/posts/<%= post._id %>">View</a>
     <hr>
-    <span class="help-block">Comment on this post!</span>
+    <span class="help-block"><u>Comment on this post!</u></span><br />
     <% post.comments.forEach(function(comment){ %>
       <% if (comment.active) {%>
+      <b><%= comment._by.local.name %></b>:&#8195;
       <%= comment.content %><br />
       Comment Id: <%= comment._id %><br />
       <form class="" action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=delete" method="post">

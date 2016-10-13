@@ -1,41 +1,39 @@
 <br />
 <span id="helpBlock" class="help-block">Post</span>
 <label class="sr-only" for="inputHelpBlock">nUPath Newsfeed</label>
-<textarea id="post" class="form-control" rows="3"></textarea>
+<textarea id="post" class="form-control" rows="3"></textarea><br>
 <input id="post-btn" class="btn btn-success" type="submit" name="submit" value="Post">
 <br />
 
 <br /><hr /><br />
 <div class="panel-body">
 <% data.forEach(function(post) { %>
-<%= post._by.local.name %><br />
-<%= post.content %><br />
-Post Id: <%= post._id %><br />
-User Id: <%= post._by._id %><br />
-<%= post.createdAt %><br /><br />
-<a href="/posts/<%= post._id %>">View</a>
-<hr>
-<span class="help-block">Comment on this post!</span>
-<% post.comments.forEach(function(comment){ %>
-  <% if (comment.active) {%>
-  <%= comment.content %><br />
-  Comment Id: <%= comment._id %><br />
-  <form class="" action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=delete" method="post">
-    <input class="btn btn-danger" type="submit" name="submit" value="Delete">
-  </form>
-  <hr />
-  <% } %>
-<% }) %>
-<form class="" action="/posts/<%= post._id %>/comments" method="post">
-  <textarea id="comment" name="content" class="form-control" rows="2"></textarea><br>
-  <input class="btn btn-success" type="submit" name="submit" value="Post">
-</form>
-
-<form class="" action="/posts/<%= post._id %>?_method=delete" method="post">
-  <input class="btn btn-danger" type="submit" name="submit" value="Delete">
-</form>
-
-<hr />
+  <div id="<%= post._id %>" class="post">
+    <p><%= post._by.local.name %></p>
+    <p><%= post.content %></p>
+    <p>Post Id: <%= post._id %></p>
+    <p>User Id: <%= post._by._id %></p>
+    <p><%= post.createdAt %></p>
+    </p><a href="/posts/<%= post._id %>">View</a></p>
+    <input class="btn btn-danger btn-delete-post" type="submit" name="submit" value="Delete Post">
+    <hr>
+    <div class="comments">
+      <span class="help-block">Comment on this post!</span>
+      <% post.comments.forEach(function(comment){ %>
+          <% if (comment.active) {%>
+            <div id="<%= comment._id %>">
+            <p><%= comment.content %><br /></p>
+            <p>Comment Id: <%= comment._id %><br /></p>
+            <input class="btn btn-danger btn-delete-comment" type="submit" name="submit" value="Delete Comment">
+            <hr />
+          </div>
+        <% } %>
+      <% }) %>
+    </div>
+    <textarea id="comment" name="content" class="form-control input-new-comment" rows="2"></textarea><br>
+    <input class="btn btn-success btn-new-comment" type="submit" name="submit" value="Post Comment">
+    <hr />
+</div>
 <% }) %>
 </div>
 
@@ -57,11 +55,85 @@ User Id: <%= post._by._id %><br />
       data: JSON.stringify({content: postInput.val()})
     };
     var cb = function(data){
-      var newPost = $('<div>', {id: data['_id'], class: 'panel-body', text: data['content']});
-      panel.append(newPost);
+      postInput.val('');
+      var newPost = '';
+      newPost += '<div id="' + data._id + '">';
+      newPost += '<p>' + data._by.local.name + '</p>';
+      newPost += '<p>' + data.content + '</p>';
+      newPost += '<p>Post Id: ' + data._id + '</p>';
+      newPost += '<p>User Id: ' + data._by._id + '</p>';
+      newPost += '<p>' + data.createdAt + '</p>';
+      newPost += '<p><a href="/posts/' + data._id + '">View</a></p>';
+      newPost += '<input class="btn btn-danger btn-delete" type="submit" name="submit" value="Delete Post">';
+      newPost += '<hr />';
+      newPost += '<span class="help-block">Comment on this post!</span>'
+      newPost += '<form class="" action="/posts/' + data._id + '/comments" method="post">'
+      newPost += '<textarea id="comment" name="content" class="form-control" rows="2"></textarea><br>'
+      newPost += '<input class="btn btn-success btn-delete" type="submit" name="submit" value="Post Comment">';
+      newPost += '<br />'
+      newPost += '</form>'
+      newPost += '</div>';
+      newPost += '<hr>';
+      // var newPost = $('<div>', {id: data['_id'], class: 'panel-body', text: data['content']});
+      // console.log(data);
+      panel.prepend(newPost);
     };
     $.ajax(opts).done(cb);
   });
 
+  $('body').on('click', '.btn-delete-post', function(evt){
+    evt.preventDefault();
+    var postId = $(evt.target).parent()[0].id;
+
+    var opts = {
+      method: 'delete',
+      url: '/posts/' + postId
+    };
+    var cb = function(data){
+      $('#' + postId).remove();
+    };
+    $.ajax(opts).done(cb);
+  });
+
+  $('body').on('click', '.btn-new-comment', function(evt){
+    evt.preventDefault();
+    var postId = $(evt.target).parent()[0].id;
+    var comment = $(evt.target).siblings('.input-new-comment');
+
+    var opts = {
+      method: 'post',
+      url: '/posts/' + postId + '/comments',
+      contentType: 'application/json',
+      data: JSON.stringify({content: comment.val()})
+    };
+    var cb = function(data){
+      comment.val('');
+      var newComment = '';
+      newComment += '<div id="' + data._id + '">';
+      newComment += '<p>' + data.content + '</p>';
+      newComment += '<p>Comment Id: ' + data._id + '</p>';
+      newComment += '<input class="btn btn-danger btn-delete-comment" type="submit" name="submit" value="Delete Comment">'
+      newComment += '<hr />';
+      newComment += '<div>';
+
+      $('.comments').append(newComment);
+    };
+    $.ajax(opts).done(cb);
+  });
+
+  $('body').on('click', '.btn-delete-comment', function(evt){
+    evt.preventDefault();
+    var postId = $(evt.target).parent().parent().parent()[0].id;
+    var commentId = $(evt.target).parent()[0].id;
+
+    var opts = {
+      method: 'delete',
+      url: '/posts/' + postId + '/comments/' + commentId
+    };
+    var cb = function(data){
+      $('#' + commentId).remove();
+    };
+    $.ajax(opts).done(cb);
+  });
 
 </script>
