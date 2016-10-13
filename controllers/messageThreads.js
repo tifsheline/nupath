@@ -4,11 +4,12 @@ var Message = require('../models/Message.js');
 
 var messageThreadController = {
   index: function(req, res){
-    MessageThread.find({}).populate('users', 'local.email').exec(function(err, data){
+    MessageThread.find({}).populate('users').exec(function(err, data){
       if (err) {
         res.json(err);
       } else {
-        res.json(data);
+        res.render('threads/index', {data, data});
+        // res.json(data);
       }
     });
   },

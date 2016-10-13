@@ -9,12 +9,12 @@
 <div class="panel-body">
 <% data.forEach(function(post) { %>
   <div id="<%= post._id %>" class="post">
-    <p><%= post._by.local.name %></p>
-    <p><%= post.content %></p>
+    <p><strong><%= post._by.local.name %></strong></p>
+    <h4><%= post.content %></h4>
     <p>Post Id: <%= post._id %></p>
     <p>User Id: <%= post._by._id %></p>
     <p><%= post.createdAt %></p>
-    </p><a href="/posts/<%= post._id %>">View</a></p>
+    <strong><a href="/posts/<%= post._id %>">View</a></strong>
     <input class="btn btn-danger btn-delete-post" type="submit" name="submit" value="Delete Post">
     <hr>
     <div class="comments">
