@@ -1,3 +1,13 @@
+<form class="form-inline pull-xs-right">
+  <input id="search-text" class="form-control" type="text" placeholder="Search User">
+  <button id="search" class="btn btn-outline-success" type="submit">Search</button>
+</form>
+<hr />
+<div id="result">
+
+</div>
+<hr />
+
 <% data.forEach(function(user) { %>
 Name: <%= user.local.name %> <br />
 Email: <%= user.local.email %> <br />
