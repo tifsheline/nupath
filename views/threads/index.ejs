@@ -1,0 +1,9 @@
+Participants:
+<hr>
+<% data[0].users.forEach(function(participant){ %>
+  <div class='well'>
+    Name: <%= participant.local.name %><br />
+    Email: <%= participant.local.email %><br />
+    School: <%= participant.local.school %>
+  </div>
+<% }) %>
