@@ -27,7 +27,7 @@ Joined: <%= data.createdAt %> <br />
     <h3 class="help-block">Post:</h3> <br>
     <h4>Name: <%= post.content %></h4>
     Post Id: <%= post._id %><br />
-    User Id: <%= post._by %><br />
+    User Id: <%= data.local.name %><br />
     <%= post.createdAt %><br /><br />
     <a href="/posts/<%= post._id %>">View</a>
     <hr>
