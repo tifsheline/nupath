@@ -9,7 +9,7 @@
 <div class="panel-body">
 <% data.forEach(function(post) { %>
   <div id="<%= post._id %>" class="post">
-    <p><%= post._by.local.name %></p>
+    <p><strong><%= post._by.local.name %></strong></p>
     <h4><%= post.content %></h4>
     <p>Post Id: <%= post._id %></p>
     <p>User Id: <%= post._by._id %></p>
