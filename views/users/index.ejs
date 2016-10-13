@@ -1,18 +1,55 @@
-<form class="form-inline pull-xs-right">
+<%# <form class="form-inline pull-xs-right">%>
   <input id="search-text" class="form-control" type="text" placeholder="Search User">
   <button id="search" class="btn btn-outline-success" type="submit">Search</button>
 </form>
 <hr />
+
 <div id="result">
 
 </div>
-<hr />
 
 <% data.forEach(function(user) { %>
-Name: <%= user.local.name %> <br />
-Email: <%= user.local.email %> <br />
-School: <%= user.local.school %> <br />
-Joined: <%= user.createdAt %> <br />
-<a href="/users/<%= user._id %>">View</a>
-<hr>
+  <div class="user">
+    Name: <span class="name"><%= user.local.name %></span>
+    <p>Email: <%= user.local.email %></p>
+    <p>School: <%= user.local.school %></p>
+    <p>Joined: <%= user.createdAt %></p>
+    <a href="/users/<%= user._id %>">View</a>
+    <hr>
+    </div>
 <% }) %>
+
+<script type="text/javascript">
+  // if ($('#search-text').val() != null){
+  //   data.forEach(function(user) {
+  //     if($('#search-text').val().toLowerCase() == user.local.name.toLowerCase()){
+  //       $('#result').append("ganey")
+  //     }
+  //   })
+  // }
+
+  $('#search').on('click', function(evt){
+
+    $.each(($('.user').children('.name')), function(i, el) {
+      // console.log($(el)[0].innerText)
+      // if( $(el)[0].innerText == $('#search-text').val()){
+      var input = $('#search-text').val();
+      var record = $(el)[0].innerText;
+      var regex = new RegExp(input, "i")
+      if(record.match(regex)){
+        console.log($(this));
+        console.log($(this).parent());
+        console.log(($(this).parent().show()));
+      } else {
+        $(this).parent().hide();
+      }
+    })
+
+    // });
+    //   console.log($(el));
+      // if($(el).children('.name').text().toLowerCase() != $(evt.target).val().toLowerCase()){
+      //   $(el).css('display','none');
+      // }
+    // })
+  })
+</script>
