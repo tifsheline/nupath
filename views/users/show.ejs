@@ -27,19 +27,22 @@ Joined: <%= data.createdAt %> <br />
     <h3 class="help-block">Post:</h3> <br>
     <h4>Name: <%= post.content %></h4>
     Post Id: <%= post._id %><br />
-    User Id: <%= post._by %><br />
+    User Id: <%= data.local.name %><br />
     <%= post.createdAt %><br /><br />
     <a href="/posts/<%= post._id %>">View</a>
     <hr>
     <span class="help-block"><u>Comment on this post!</u></span><br />
     <% post.comments.forEach(function(comment){ %>
       <% if (comment.active) {%>
-      <b><%= comment._by.local.name %></b>:&#8195;
+      <strong><%= comment._by.local.name %></strong>:&#8195;
       <%= comment.content %><br />
       Comment Id: <%= comment._id %><br />
+
+      <% if (currentUser._id.toString() == data._id.toString()) {%>
       <form class="" action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=delete" method="post">
         <input class="btn btn-danger" type="submit" name="submit" value="Delete">
       </form>
+      <% } %>
       <hr />
       <% } %>
     <% }) %>

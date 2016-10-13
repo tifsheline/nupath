@@ -25,7 +25,6 @@ module.exports = {
           });
         })
   },
-
   show: function(req, res) {
     Post.findById(req.params.postId).populate('users').exec(function(err, data){
       if(err) return res.json(err);
