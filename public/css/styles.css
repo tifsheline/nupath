@@ -13,3 +13,67 @@ form {
 .btn-default{
   background-color: pink;
 }
+
+#public-chat{
+  height: 600px;
+}
+
+#chat-container{
+  height: 500px;
+  overflow: scroll;
+  padding: 0;
+  border: solid 1px #e2e2e2;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+#chat-form{
+  width: 100%;
+  padding-bottom: 10px;
+  display: block;
+}
+
+#gif-container{
+  text-align: center;
+  width: 100%;
+  height: 120px;
+  overflow-y: scroll;
+  border: solid 1px #aaa;
+  background-color: #e2e2e2;
+  border-radius: 5px;
+}
+
+.giphy{
+  height: 100px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+#giphy-search{
+  width: 100%;
+}
+
+#chat-message{
+  width: 84%;
+  display: inline-block;
+}
+
+#chat-submit{
+  width: 15%;
+}
+
+.mine{
+  background-color: skyblue;
+}
+
+.chat-message{
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.chat-message img{
+  height: 150px;
+  border-radius: 10px;
+}
