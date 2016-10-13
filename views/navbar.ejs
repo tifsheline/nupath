@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -8,8 +9,10 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <% if(!loggedIn) { %>
       <a class="navbar-brand" href="/login">nUPath</a>
     </div>
+    <% } %>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -20,10 +23,15 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">nUPath <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li><a href="/users">All nUPathers</a></li>
             <li><a href="/messages">Messages</a></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
         </li>
+        <form class="form-inline pull-xs-right">
+          <input class="form-control" type="text" placeholder="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
         <%  } %>
       </ul>
     </div><!-- /.navbar-collapse -->
