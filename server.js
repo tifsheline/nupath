@@ -123,12 +123,19 @@ app.get('/chat', function(req, res){
 
       });
 
-      socket.on('new-giphy', function(message){
-        Message.create({_by: req.user._id, content: message, content_type: 'giphy', public: true}, function(err, data){
+      socket.on('new-giphy', function(data){
+        Message.create({_by: data.user, content: data.message, content_type: 'giphy', public: true}, function(err, data){
           if (err){
             chat.emit('broadcast-error', err);
           } else {
-            chat.emit('broadcast-giphy', {user: req.user.local.name, message: data.content});
+            Message.populate(data, {path: '_by'}, function (err, data) {
+              // console.log(err);
+              if (err) {
+                chat.emit('broadcast-error', err);
+              } else {
+                chat.emit('broadcast-giphy', {user: data._by.local.name, message: data.content});
+              }
+            })
           }
         })
 
