@@ -1,3 +1,9 @@
+<style media="screen">
+  #signin-form{
+    margin-left: 300px;
+  }
+</style>
+
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -37,10 +43,14 @@
   </a>
 </div>
 
+<br>
 
+<div id="signin-form">
 <span class="col-sm-8">
 
     <h1>Signup</h1>
+
+    <br>
 
     <% if(message.length > 0) { %>
       <div class="alert alert-warning"><%= message %></div>
@@ -72,3 +82,4 @@
     <p>Or, <a href="/login">Login</a></p>
 
 </span>
+</div>
