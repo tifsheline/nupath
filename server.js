@@ -106,16 +106,33 @@ app.get('/chat', function(req, res){
     chat.on('connect', function(socket){
       console.log('A user has connected.');
 
-      socket.on('new-chat', function(message){
-        Message.create({_by: req.user.id, content: message, public: true}, function(err, data){
+      socket.on('new-chat', function(data){
+        Message.create({_by: data.user, content: data.message, public: true}, function(err, data){
           if (err){
             chat.emit('broadcast-error', err);
           } else {
-            chat.emit('broadcast-chat', {user: req.user.local.name, message: data.content});
+            Message.populate(data, {path: '_by'}, function (err, data) {
+              if (err) {
+                chat.emit('broadcast-error', err);
+              } else {
+                chat.emit('broadcast-chat', {user: data._by.local.name, message: data.content});
+              }
+            })
           }
         })
 
-      })
+      });
+
+      socket.on('new-giphy', function(message){
+        Message.create({_by: req.user._id, content: message, content_type: 'giphy', public: true}, function(err, data){
+          if (err){
+            chat.emit('broadcast-error', err);
+          } else {
+            chat.emit('broadcast-giphy', {user: req.user.local.name, message: data.content});
+          }
+        })
+
+      });
 
       socket.on('disconnect', function(){
         console.log('A user has disconnected.');
@@ -123,7 +140,7 @@ app.get('/chat', function(req, res){
     })
   }
 
-  res.sendFile(__dirname + '/public/chat.html');
+  res.render('chat');
 });
 // end using routes -->
 

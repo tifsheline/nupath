@@ -24,11 +24,12 @@
 
       $('#chat-submit').on('click', function(evt){
         evt.preventDefault();
-        socket.emit('new-chat', $('#chat-message').val());
+        socket.emit('new-chat', {user: "<%= currentUser._id %>", message: $('#chat-message').val()});
         $('#chat-message').val('')
       });
 
       socket.on('broadcast-chat', function(data){
+        console.log(data);
         console.log(data.user);
         console.log(data.message);
         $('#chat-container').append('<li>' + data.user + ': ' + data.message + '</li>')
