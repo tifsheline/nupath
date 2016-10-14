@@ -17,9 +17,10 @@ h1, h2, h3{
 }
 
 .wbg{
-  background: #f0f0f0;
+  background: #fafafa;
+  border: 1px #bbb solid;
   border-top: 3px #78c485 solid;
-  border-radius: 2px;
+  border-radius: 3px;
   padding: 15px 20px 25px 20px;
 }
 
@@ -100,23 +101,42 @@ form {
 }
 
 #newsfeed .post{
-  border: 1px solid #aaa;
-  padding: 20px;
-  border-radius: 10px;
   margin-bottom: 20px;
 }
 
 .avatar{
   float: left;
-  height: 50px;
-  width: 50px;
   border-radius: 100%;
   background: #78c485;
   margin-right: 20px;
   text-align: center;
-  line-height: 50px;
   color: #fff;
   text-transform: capitalize;
+}
+
+#profile .avatar{
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+}
+
+#newsfeed .avatar{
+  height: 75px;
+  width: 75px;
+  line-height: 75px;
+  font-size: 24px;
+}
+
+#newsfeed .comment .avatar{
+  height: 22px;
+  width: 22px;
+  line-height: 22px;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+#newsfeed .comment-content{
+  min-height: 22px;
 }
 
 #profile .wbg a {
@@ -159,4 +179,9 @@ form {
 
 #profile .btn-new-achievement{
   line-height: 60px;
+}
+
+#newsfeed .post .name,
+#newsfeed .post .date{
+  color: #777;
 }
