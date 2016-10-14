@@ -37,7 +37,7 @@ var messageThreadController = {
               if (err) {
                 res.json(err)
               } else {
-                res.JSON('/threads/' + thread._id);
+                res.redirect('/messages');
               }
             })
           })
