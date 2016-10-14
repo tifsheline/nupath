@@ -91,7 +91,7 @@ app.use(isLoggedIn);
 app.use('/users', userRoutes);
 app.use('/chat-messages', chatRoutes);
 app.use('/posts', postRoutes);
-app.use('/threads', messageThreadsRoutes);
+app.use('/messages', messageThreadsRoutes);
 // app.use('*', function(req, res){
 //   res.render('errPage', {title: "Fuck it's 404!"});
 // });
