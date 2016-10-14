@@ -85,6 +85,9 @@
 
   <div class="col-md-4">
     <div class="wbg">
+      <button type="button" class="btn-icon btn-new-achievement" data-toggle="modal" data-target="#gridSystemModal">
+        <i class="fa fa-plus-circle"></i>
+      </button>
       <h3>Achievement</h3>
       <hr>
       <% user.achievements.forEach(function(el){ %>
@@ -102,12 +105,6 @@
           </div>
         <% } %>
       <% }) %>
-
-      <div class="bd-example bd-example-padded-bottom">
-        <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#gridSystemModal">
-          Submit Achievement
-        </button>
-      </div>
     </div>
   </div>
 </div>

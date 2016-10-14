@@ -128,7 +128,7 @@ form {
 }
 
 #profile .messages{
-  padding: 20px 15px;
+  padding: 10px 0px;
 }
 
 #profile .messages:hover .avatar{
@@ -151,6 +151,12 @@ form {
   float: right;
 }
 
-#profile .achievement{
-  margin-bottom: 30px;
+#profile div.achievement{
+  margin-bottom: 0px;
+  border-left: 5px solid #aaa;
+  padding-left: 10px;
+}
+
+#profile .btn-new-achievement{
+  line-height: 60px;
 }
