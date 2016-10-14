@@ -3,7 +3,16 @@
 }
 
 body {
-  font-family: 'Comfortaa', cursive;
+  /*font-family: 'Comfortaa', cursive;*/
+  font-family: 'Cabin', sans-serif;
+}
+
+h4, h5, h6{
+  font-family: 'Cabin', sans-serif;
+}
+
+h1, h2, h3{
+  font-family: 'Droid Sans', sans-serif;
 }
 
 form {
