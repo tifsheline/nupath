@@ -8,7 +8,7 @@ module.exports = {
     	if (err) {
       	res.json(err);
       } else {
-        console.log(data)
+        // res.json(data);
       	res.render('users/index', {data: data});
       }
     });
@@ -30,13 +30,10 @@ module.exports = {
   },
 
   create: function(req, res){
-  	User.create(req.body, function(err, user){
-    	if (err) {
-      	res.json(err);
-      } else {
-      	res.json(user);
-      }
-    });
+    User.findById(req.params.id).exec(function(err, data){
+      if(err) return res.json(err);
+      res.json(data.local.name)
+    })
   },
 
   edit: function(req, res){
