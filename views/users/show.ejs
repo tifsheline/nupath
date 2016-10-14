@@ -1,7 +1,7 @@
 <style media="screen">
   #user-profile{
-    width: 800px;
-    height: 800px;
+    width: 900px;
+    height: 900px;
     margin-left: 200px;
   }
 </style>
@@ -14,13 +14,16 @@
 Email: <%= data.local.email %> <br />
 School: <%= data.local.school %> <br />
 Joined: <%= data.createdAt %> <br />
-<hr>
+
 <% if (currentUser && currentUser._id.toString() != data._id.toString()) { %>
 <form class="" action="/messages/new/<%= currentUser._id%>/<%= data._id%>" method="post">
   <input class="btn btn-default" type="submit" name="name" value="Message">
 </form>
 <hr />
 <% } %>
+
+<div class="row">
+  <div class="col-md-6">
 <h3 class="help-block">Achievements:</h3> <br>
 
 <% data.achievements.forEach(function(el){ %>
@@ -32,8 +35,10 @@ Joined: <%= data.createdAt %> <br />
   <% } %>
 
 <% }) %>
+  </div>
 
-<div class="panel-body">
+  <div class="col-md-6">
+    <div class="panel-body">
   <% data.posts.forEach(function(post){ %>
     <% if(post.active) { %>
       <div id="<%= post._id %>" class="post">
@@ -71,6 +76,8 @@ Joined: <%= data.createdAt %> <br />
       </div>
     <% } %>
   <% }) %>
+</div>
+</div>
 </div>
 </div>
 
