@@ -1,44 +1,59 @@
-<style media="screen">
-  #profile{
-    width: 900px;
-    height: 900px;
-    margin-left: 100px;
-  }
-</style>
-
 <div id="profile">
-<div class="page-header">
-
-    <h1><%= user.local.name %></h1>
-    <strong>Email</strong>: <%= user.local.email %><br>
-    <strong>School</strong>: <%= user.local.school %><br>
-    <strong>Joined</strong>: <%= user.createdAt %><br>
-
-    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-
-</div>
 
 <div class="row">
+  <h1><%= user.local.name %></h1>
 
-  <div class="col-md-6">
+  <div class="col-md-4">
+      <h3>Profile</h3>
+      <hr>
+      <p><strong>Email</strong>: <%= user.local.email %></p>
+      <p><strong>School</strong>: <%= user.local.school %></p>
+      <p><strong>Joined</strong>: <%= user.createdAt %></p>
+
+      <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+
+  </div>
+
+  <div class="col-md-4">
+    <h3>Messages</h3>
+    <hr>
+      <div class="well">
+          <% user.messageThreads.forEach(function(el){%>
+            <a href="/messages/<%= el._id %>">
+              <div class="message">
+                <p><% if (el.users[0]._id.toString() != currentUser._id.toString()) { %>
+                  <%= el.users[0].local.name %></p>
+                <% } else { %>
+                  <%= el.users[1].local.name %></p>
+                <% } %>
+                <% if(el.messages[el.messages.length - 1]) { %>
+                  <%= el.messages[el.messages.length - 1].content %></p>
+                <% } else { %>
+                  <p>Say hello!</p>
+                <% } %>
+              </div>
+            </a>
+            <hr>
+          <% }) %>
+      </div>
+  </div>
+
+  <div class="col-md-4">
+    <h3>Achievement</h3>
+    <hr>
   <% user.achievements.forEach(function(el){ %>
     <% if(el.active) { %>
-    <h4>Title: <%= el.title%></h4>
-    <b>Year: <%= el.year%></b> <br>
-    Description: <%= el.description%> <br>
+          <h4>Title: <%= el.title%></h4>
+          <b>Year: <%= el.year%></b> <br>
+          Description: <%= el.description%> <br>
 
-    <form class="" action="/users/<%= user._id %>/achievements/<%= el._id %>?_method=delete" method="post">
-    <input class="btn btn-danger" type="submit" name="submit" value="Delete Achievement">
-    </form>
-    <hr>
-    <% } %>
-
+          <form class="" action="/users/<%= user._id %>/achievements/<%= el._id %>?_method=delete" method="post">
+          <input class="btn btn-danger" type="submit" name="submit" value="Delete Achievement">
+          </form>
+          <hr>
+          <% } %>
   <% }) %>
-  <button class="btn btn-info">Submit Achievements</button>
-  <p>
-
-  </p>
-  <div id="no-way" class="toggle-form">
+  <div id="no-way" class="">
     <form class="" action="/users/<%= user._id %>/achievements" method="post">
     <span class="help-block">Year:</span>
     <input class="achievement form-control" name="year" />
@@ -52,35 +67,8 @@
     </form>
     <br />
   </div>
-  <hr>
+
   </div>
-
-    <div class="col-md-6">
-      <span class="help-block">Message:</span>
-        <div class="well">
-            <% user.messageThreads.forEach(function(el){%>
-            <p>
-                FROM: <% if (el.users[0]._id.toString() != currentUser._id.toString()) { %>
-                  <%= el.users[0].local.name %>
-                <% } else { %>
-                  <%= el.users[1].local.name %>
-                <% } %> <br>
-                <% if(el.messages[el.messages.length - 1]) { %>
-                  <%= el.messages[el.messages.length - 1].content %>
-                <% } else { %>
-                  Say hello!
-                <% } %> <br>
-                <%= el.createdAt %>
-            </p>
-            <% }) %>
-        </div>
-    </div>
 </div>
 
 </div>
-
-<script type="text/javascript">
-  $('.btn-info').click(function(evnt){
-      $('#no-way').toggleClass('toggle-form');
-  })
-</script>
