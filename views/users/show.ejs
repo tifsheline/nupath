@@ -1,19 +1,11 @@
-<style media="screen">
-  #user-profile{
-    width: 900px;
-    height: 900px;
-    margin-left: 100px;
-  }
-</style>
-
 <div id="user-profile">
 
 <h1><%= data.local.name %></h1>
 
 <br />
-Email: <%= data.local.email %> <br />
-School: <%= data.local.school %> <br />
-Joined: <%= data.createdAt %> <br />
+<p>Email: <%= data.local.email %> </p>
+<p>School: <%= data.local.school %> </p>
+<p>Joined: <%= data.createdAt %> </p>
 
 <% if (currentUser && currentUser._id.toString() != data._id.toString()) { %>
 <form class="" action="/messages/new/<%= currentUser._id%>/<%= data._id%>" method="post">
@@ -23,29 +15,26 @@ Joined: <%= data.createdAt %> <br />
 <% } %>
 
 <div class="row">
-  <div class="col-md-6">
-<h3 class="help-block">Achievements:</h3> <br>
+  <div class="col-md-4">
+    <h3>Achievements</h3>
 
 <% data.achievements.forEach(function(el){ %>
   <% if(el.active) { %>
-  <h4>Title: <%= el.title%></h4>
-  <b>Year: <%= el.year%></b> <br>
-  Description: <%= el.description%> <br>
-  <hr>
+    <h4><%= el.title%> <small><%= el.year%></small></h4>
+    <p><%= el.description%></p>
+    <hr>
   <% } %>
 
 <% }) %>
   </div>
 
-  <div class="col-md-6">
-    <div class="panel-body">
+  <div class="col-md-8">
+    <h3>Posts</h3>
+    <hr>
   <% data.posts.forEach(function(post){ %>
     <% if(post.active) { %>
-      <div id="<%= post._id %>" class="post">
-        <h3 class="help-block">Post:</h3>
-        <h4>Name: <%= post.content %></h4>
-        <p>Post Id: <%= post._id %></p>
-        <p>User Id: <%= data.local.name %></p>
+      <div id="<%= post._id %>" class="post well">
+        <h4><%= post.content %></h4>
         <p><%= post.createdAt %></p>
         <p><a href="/posts/<%= post._id %>">View</a></p>
         <% if(currentUser._id.toString() == data._id.toString()){ %>
@@ -72,11 +61,10 @@ Joined: <%= data.createdAt %> <br />
         <textarea id="comment" name="content" class="form-control input-new-comment" rows="2"></textarea><br>
         <input class="btn btn-success btn-new-comment" type="submit" name="submit" value="Post Comment">
 
-        <hr />
+        
       </div>
     <% } %>
   <% }) %>
-</div>
 </div>
 </div>
 </div>
