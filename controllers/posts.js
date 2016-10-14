@@ -10,6 +10,7 @@ module.exports = {
       if (err) {
         res.json(err);
       } else {
+        // res.json(data)
         res.render('posts/index', {data: data});
       }
     });
