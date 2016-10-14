@@ -12,7 +12,7 @@ In the modern age of social media, students have various platforms for communica
 
 Dash board of the site:
 
-![nupath_dashboard](/images/nupath_dashboard.png)
+![nupath_dashboard](public/images/nupath_dashboard.png)
 
 
 ---
@@ -62,9 +62,9 @@ Dash board of the site:
 
 ### Data Modeling
 
-![nupath_ERD](/images/nupath_ERD.jpg)
-![nupath_homepage_wireframe](/images/nupath_homepage_wireframe.png)
-![nupath_profilepg_wireframe](/images/nupath_profilepg_wireframe.png)
+![nupath_ERD](public/images/nupath_ERD.jpg)
+![nupath_homepage_wireframe](public/images/nupath_homepage_wireframe.png)
+![nupath_profilepg_wireframe](public/images/nupath_profilepg_wireframe.png)
 ---
 
 ###Lags
