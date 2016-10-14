@@ -100,7 +100,7 @@ form {
   border-radius: 10px;
 }
 
-#newsfeed .post{
+.wbg{
   margin-bottom: 20px;
 }
 
@@ -184,4 +184,8 @@ form {
 #newsfeed .post .name,
 #newsfeed .post .date{
   color: #777;
+}
+
+#newsfeed .trending small{
+  color: #888;
 }
