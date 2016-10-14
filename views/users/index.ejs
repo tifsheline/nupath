@@ -1,3 +1,15 @@
+<style media="screen">
+  #all-users{
+    width: 800px;
+    height: 800px;
+  }
+</style>
+
+<div id="all-users">
+<h1>All nUPathers</h1>
+
+<hr>
+
 <% data.forEach(function(user) { %>
 Name: <%= user.local.name %> <br />
 Email: <%= user.local.email %> <br />
@@ -6,3 +18,4 @@ Joined: <%= user.createdAt %> <br />
 <a href="/users/<%= user._id %>">View</a>
 <hr>
 <% }) %>
+</div>
