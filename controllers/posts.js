@@ -6,7 +6,7 @@ var User = require('../models/User.js')
 //models exports/ POST VERBS
 module.exports = {
   index: function(req, res){
-    Post.find({active: true}).sort({createdAt: 'desc'}).populate('_by').exec(function(err, data){
+    Post.find({active: true}).sort({createdAt: 'desc'}).populate('_by comments._by').exec(function(err, data){
       if (err) {
         res.json(err);
       } else {

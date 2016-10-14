@@ -5,22 +5,6 @@
   }
 </style>
 
-<div>
-  <form action="">
-    <input id="giphy-search" type="test" name="" value=""><br>
-    <input id="chat-message" type="test" name="message" value="">
-    <button id="chat-submit">Send</button>
-  </form>
-  <ul id="chat-container">
-  </ul>
-
-  <div id="gif-container">
-
-  </div>
-
-</div>
-
-
 <div id="newsfeed">
 <h1>nUPath Newsfeed</h1>
 
@@ -32,7 +16,6 @@
 <textarea id="post" class="form-control" rows="3"></textarea><br>
 <input id="post-btn" class="btn btn-success" type="submit" name="submit" value="Post">
 <br />
-
 
 <br /><hr /><br />
 <div class="panel-body">
@@ -53,7 +36,8 @@
       <% post.comments.forEach(function(comment){ %>
           <% if (comment.active) {%>
             <div id="<%= comment._id %>">
-            <p><%= comment.content %><br /></p>
+            <p><strong><%= comment._by.local.name %></strong>:&#8195;
+            <%= comment.content %><br /></p>
             <p>Comment Id: <%= comment._id %><br /></p>
             <% if(currentUser._id.toString() == comment._by.toString()){ %>
             <input class="btn btn-danger btn-delete-comment" type="submit" name="submit" value="Delete Comment">
@@ -168,18 +152,6 @@
       $('#' + commentId).remove();
     };
     $.ajax(opts).done(cb);
-  });
-
-  $('#giphy-search').on('keyup', function(evt){
-    $.ajax({
-      method: 'get',
-      url: 'https://api.github.com/emojis'
-    }).done(function(data){
-      $('#gif-container').html('');
-      data.forEach(function(el){
-        $('#gif-container').append('<img class="giphy" src="' + el + '" />');
-      })
-    });
   });
 
 </script>
