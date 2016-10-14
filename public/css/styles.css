@@ -127,6 +127,15 @@ form {
   font-size: 24px;
 }
 
+#users .avatar{
+  float: none;
+  height: 100px;
+  width: 100px;
+  line-height: 100px;
+  font-size: 36px;
+  margin: 0 auto;
+}
+
 #newsfeed .comment .avatar{
   height: 22px;
   width: 22px;
@@ -151,7 +160,8 @@ form {
   padding: 10px 0px;
 }
 
-#profile .messages:hover .avatar{
+#profile .messages:hover .avatar,
+#users .user:hover .avatar{
   background: #77DD77;
 }
 
@@ -188,4 +198,17 @@ form {
 
 #newsfeed .trending small{
   color: #888;
+}
+
+#users .user{
+  text-align: center;
+  padding: 70px 20px;
+}
+
+#users .user{
+  color: #000;
+}
+
+.col-md-4{
+  min-height: 0;
 }
