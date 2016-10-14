@@ -91,7 +91,7 @@ app.use(isLoggedIn);
 app.use('/users', userRoutes);
 app.use('/chat-messages', chatRoutes);
 app.use('/posts', postRoutes);
-app.use('/threads', messageThreadsRoutes);
+app.use('/messages', messageThreadsRoutes);
 
 // end using routes -->
 

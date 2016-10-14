@@ -14,11 +14,12 @@ var messageThreadController = {
     });
   },
   show: function(req, res){
-    MessageThread.findById(req.params.id).populate('users messages').exec(function(err, data){
+    MessageThread.findById(req.params.id).populate({path: 'users messages', populate: {path: '_by'}}).exec(function(err, data){
       if (err) {
         res.json(err);
       } else {
-        res.render('threads/show', {data: data});
+        // res.render('threads/show', {data: data});
+        res.json(data)
       }
     });
   },
@@ -36,7 +37,7 @@ var messageThreadController = {
               if (err) {
                 res.json(err)
               } else {
-                res.redirect('/threads/' + thread._id);
+                res.JSON('/threads/' + thread._id);
               }
             })
           })
@@ -63,8 +64,14 @@ var messageThreadController = {
             if (err) {
               res.json(err);
             } else {
-              res.redirect('/threads/' + req.params.id);
               // res.json(newMessage);
+              Message.populate(newMessage, {path: '_by'}, function (err, message) {
+                if (err) {
+                  res.json(err);
+                } else {
+                  res.json(message)
+                }
+              })
             }
           });
         })
