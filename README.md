@@ -62,7 +62,7 @@ Dash board of the site:
 
 ### Data Modeling
 
-![nupath_ERD](public/images/nupath_ERD.jpg)
+![nupath_ERD](public/images/nupath_ERD.png)
 ![nupath_homepage_wireframe](public/images/nupath_homepage_wireframe.png)
 ![nupath_profilepg_wireframe](public/images/nupath_profilepg_wireframe.png)
 ---
