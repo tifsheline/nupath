@@ -1,11 +1,22 @@
+<style media="screen">
+  #user-profile{
+    width: 800px;
+    height: 800px;
+    margin-left: 200px;
+  }
+</style>
+
+<div id="user-profile">
+
+<h1><%= data.local.name %></h1>
+
 <br />
-Name: <%= data.local.name %> <br />
 Email: <%= data.local.email %> <br />
 School: <%= data.local.school %> <br />
 Joined: <%= data.createdAt %> <br />
 <hr>
 <% if (currentUser && currentUser._id.toString() != data._id.toString()) { %>
-<form class="" action="/threads/new/<%= currentUser._id%>/<%= data._id%>" method="post">
+<form class="" action="/messages/new/<%= currentUser._id%>/<%= data._id%>" method="post">
   <input class="btn btn-default" type="submit" name="name" value="Message">
 </form>
 <hr />
@@ -60,6 +71,7 @@ Joined: <%= data.createdAt %> <br />
       </div>
     <% } %>
   <% }) %>
+</div>
 </div>
 
 <script type="text/javascript">

@@ -1,9 +1,66 @@
-Participants:
+<h1>Messages</h1>
 <hr>
-<% data[0].users.forEach(function(participant){ %>
-  <div class='well'>
-    Name: <%= participant.local.name %><br />
-    Email: <%= participant.local.email %><br />
-    School: <%= participant.local.school %>
+<div class="threads col-md-4">
+<% data.forEach(function(el){%>
+  <% if(currentUser._id.toString() == el.users[0]._id.toString() || currentUser._id.toString() == el.users[1]._id.toString()) {%>
+  <div id="<%= el._id %>" class="thread well">
+    <p><%= el._id %></p>
+    <p>FROM: <% if (el.users[0]._id.toString() != currentUser._id.toString()) { %>
+      <%= el.users[0].local.name %></p>
+    <% } else { %>
+      <%= el.users[1].local.name %></p>
+    <% } %>
+    <% if(el.messages[el.messages.length > 0]) { %>
+      <p><%= el.messages[el.messages.length - 1].content %></p>
+    <% } else { %>
+      <p>Say hello!</p>
+    <% } %>
+    <p><%= el.createdAt %></p>
   </div>
+  <% } %>
 <% }) %>
+</div>
+
+<div id="messages-container" class="col-md-8">
+</div>
+
+<script type="text/javascript">
+  $('.thread').on('click', function(evt){
+    $.ajax({
+      method: 'get',
+      url: '/messages/' + $(this).attr('id')
+    }).done(function(data){
+      $('#messages-container').html('')
+      var message = '';
+      message += '<div id ="'  + data._id +  '">';
+      message += '<div class="thread">';
+      if(data.messages.length < 1){
+        message += '<div class="">Say hello!</div>';
+      }
+      data.messages.forEach(function(el){
+        message += '<div class="well">' + el._by.local.name + ": " + el.content + '</div>';
+      });
+      message += '</div>';
+      message += '<input id="message-content" class="form-control" type="text" name="content" value="">'
+      message += '<button class="btn btn-primary send-message" type="submit" name="button">Submit</button>'
+      message += '</div>';
+      $('#messages-container').append(message);
+    });
+  });
+
+  $('body').on('click', '.send-message', function(evt){
+    evt.preventDefault();
+    // console.log($(this).parent().attr('id'));
+    $.ajax({
+      method: 'post',
+      url: '/messages/' + $(this).parent().attr('id') + '/message',
+      contentType: 'application/json',
+      data: JSON.stringify({content: $('#message-content').val(), public: 'false'})
+    }).done(function(data){
+      // console.log(data);
+      var message = ''
+      message += '<div class="well">' + data._by.local.name + ": " + data.content + '</div>';
+      $('#messages-container .thread').append(message);
+    });
+  })
+</script>
