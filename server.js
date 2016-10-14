@@ -93,7 +93,7 @@ app.use('/chat-messages', chatRoutes);
 app.use('/posts', postRoutes);
 app.use('/messages', messageThreadsRoutes);
 app.use('*', function(req, res){
-  res.render('errPage', {title: "Fuck it's 404!"});
+  res.render('errPage', {title: "404 Error!"});
 });
 
 
