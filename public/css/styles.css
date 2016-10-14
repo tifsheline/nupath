@@ -77,3 +77,10 @@ form {
   height: 150px;
   border-radius: 10px;
 }
+
+#newsfeed .post{
+  border: 1px solid #aaa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}

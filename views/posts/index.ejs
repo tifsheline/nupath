@@ -1,30 +1,19 @@
-<style media="screen">
-  #newsfeed{
-    width: 800px;
-    height: 800px;
-  }
-</style>
-
-<div id="newsfeed">
+<div id="newsfeed" class="col-md-8 col-md-offset-2">
 <h1>nUPath Newsfeed</h1>
 
 <hr>
-
-<br />
+<div class="well">
 <span id="helpBlock" class="help-block">Post to Newsfeed</span>
 <label class="sr-only" for="inputHelpBlock">nUPath Newsfeed</label>
 <textarea id="post" class="form-control" rows="3"></textarea><br>
 <input id="post-btn" class="btn btn-success" type="submit" name="submit" value="Post">
-<br />
+</div>
 
-<br /><hr /><br />
-<div class="panel-body">
+<hr />
 <% data.forEach(function(post) { %>
   <div id="<%= post._id %>" class="post">
     <p><strong><%= post._by.local.name %></strong></p>
     <h4><%= post.content %></h4>
-    <p>Post Id: <%= post._id %></p>
-    <p>User Id: <%= post._by._id %></p>
     <p><%= post.createdAt %></p>
     <strong><a href="/posts/<%= post._id %>">View</a></strong>
     <% if(currentUser._id.toString() == post._by._id.toString()){ %>
@@ -38,7 +27,6 @@
             <div id="<%= comment._id %>">
             <p><strong><%= comment._by.local.name %></strong>:&#8195;
             <%= comment.content %><br /></p>
-            <p>Comment Id: <%= comment._id %><br /></p>
             <% if(currentUser._id.toString() == comment._by.toString()){ %>
             <input class="btn btn-danger btn-delete-comment" type="submit" name="submit" value="Delete Comment">
             <hr />
@@ -49,10 +37,8 @@
     </div>
     <textarea id="comment" name="content" class="form-control input-new-comment" rows="2"></textarea><br>
     <input class="btn btn-success btn-new-comment" type="submit" name="submit" value="Post Comment">
-    <hr />
 </div>
 <% }) %>
-</div>
 </div>
 
 <script type="text/javascript">
