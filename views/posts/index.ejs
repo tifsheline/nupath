@@ -5,6 +5,22 @@
   }
 </style>
 
+<div>
+  <form action="">
+    <input id="giphy-search" type="test" name="" value=""><br>
+    <input id="chat-message" type="test" name="message" value="">
+    <button id="chat-submit">Send</button>
+  </form>
+  <ul id="chat-container">
+  </ul>
+
+  <div id="gif-container">
+
+  </div>
+
+</div>
+
+
 <div id="newsfeed">
 <h1>nUPath Newsfeed</h1>
 
@@ -157,11 +173,11 @@
   $('#giphy-search').on('keyup', function(evt){
     $.ajax({
       method: 'get',
-      url: 'http://api.giphy.com/v1/gifs/search?q=' + $(evt.target).val() + '&api_key=dc6zaTOxFJmzC'
+      url: 'https://api.github.com/emojis'
     }).done(function(data){
       $('#gif-container').html('');
-      data.data.forEach(function(el){
-        $('#gif-container').append('<img class="giphy" src="' + el.images.fixed_height.url + '" />');
+      data.forEach(function(el){
+        $('#gif-container').append('<img class="giphy" src="' + el + '" />');
       })
     });
   });
