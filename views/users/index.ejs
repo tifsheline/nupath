@@ -1,8 +1,8 @@
 <style media="screen">
-  #all-users{
+  /*#all-users{
     width: 800px;
     height: 800px;
-  }
+  }*/
 </style>
 
 <div id="all-users">
@@ -16,14 +16,14 @@
 <hr />
 
 <% data.forEach(function(user) { %>
-  <div class="user">
-    Name: <span class="name"><%= user.local.name %></span>
-    <p>Email: <%= user.local.email %></p>
-    <p>School: <%= user.local.school %></p>
-    <p>Joined: <%= user.createdAt %></p>
-    <a href="/users/<%= user._id %>">View</a>
+  <a href="/users/<%= user._id %>">
+  <div class="user col-md-4">
+    <h3 class="name"><%= user.local.name %></h3>
+    <p><%= user.local.email %></p>
+    <p><%= user.local.school %></p>
     <hr>
     </div>
+  </a>
 <% }) %>
 
 <script type="text/javascript">
@@ -35,7 +35,7 @@
   //   })
   // }
 
-  $('#search').on('click', function(evt){
+  $('#search-text').on('keyup', function(evt){
 
     $.each(($('.user').children('.name')), function(i, el) {
       // console.log($(el)[0].innerText)
@@ -44,9 +44,7 @@
       var record = $(el)[0].innerText;
       var regex = new RegExp(input, "i")
       if(record.match(regex)){
-        console.log($(this));
-        console.log($(this).parent());
-        console.log(($(this).parent().show()));
+        $(this).parent().show();
       } else {
         $(this).parent().hide();
       }
