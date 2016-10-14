@@ -1,7 +1,7 @@
 <style media="screen">
   #profile{
-    width: 800px;
-    height: 800px;
+    width: 900px;
+    height: 900px;
     margin-left: 200px;
   }
 </style>
@@ -10,26 +10,52 @@
 <div class="page-header">
 
     <h1><%= user.local.name %></h1>
+    <strong>Email</strong>: <%= user.local.email %><br>
+    <strong>School</strong>: <%= user.local.school %><br>
+    <strong>Joined</strong>: <%= user.createdAt %><br>
 
     <a href="/logout" class="btn btn-default btn-sm">Logout</a>
 
 </div>
-<div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
-        <div class="well">
 
-            <p>
-                <strong>Name</strong>: <%= user.local.name %><br>
-                <strong>id</strong>: <%= user._id %><br>
-                <strong>email</strong>: <%= user.local.email %><br>
-                <strong>password</strong>: <%= user.local.password %>
-            </p>
-
-        </div>
-    </div>
-</div>
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
+
+  <div class="col-md-6">
+  <% user.achievements.forEach(function(el){ %>
+    <% if(el.active) { %>
+    <h4>Title: <%= el.title%></h4>
+    <b>Year: <%= el.year%></b> <br>
+    Description: <%= el.description%> <br>
+
+    <form class="" action="/users/<%= user._id %>/achievements/<%= el._id %>?_method=delete" method="post">
+    <input class="btn btn-danger" type="submit" name="submit" value="Delete Achievement">
+    </form>
+    <hr>
+    <% } %>
+
+  <% }) %>
+  <button class="btn btn-info">Submit Achievements</button>
+  <p>
+
+  </p>
+  <div id="no-way" class="toggle-form">
+    <form class="" action="/users/<%= user._id %>/achievements" method="post">
+    <span class="help-block">Year:</span>
+    <input class="achievement form-control" name="year" />
+    <br />
+    <span class="help-block">Title:</span>
+    <input class="achievement form-control" name="title" />
+    <br />
+    <span class="help-block">Description:</span>
+    <textarea class="achievement form-control" name="description" rows="7"></textarea><br>
+      <input class="btn btn-success" type="submit" name="submit" value="Post Achievements">
+    </form>
+    <br />
+  </div>
+  <hr>
+  </div>
+
+    <div class="col-md-6">
       <span class="help-block">Message:</span>
         <div class="well">
             <% user.messageThreads.forEach(function(el){%>
@@ -51,41 +77,6 @@
     </div>
 </div>
 
-<hr>
-
-
-<% user.achievements.forEach(function(el){ %>
-  <% if(el.active) { %>
-  <h4>Title: <%= el.title%></h4>
-  <b>Year: <%= el.year%></b> <br>
-  Description: <%= el.description%> <br>
-
-  <form class="" action="/users/<%= user._id %>/achievements/<%= el._id %>?_method=delete" method="post">
-  <input class="btn btn-danger" type="submit" name="submit" value="Delete Achievement">
-  </form>
-  <hr>
-  <% } %>
-
-<% }) %>
-<button class="btn btn-info">Submit Achievements</button>
-<p>
-
-</p>
-<div id="no-way" class="toggle-form">
-  <form class="" action="/users/<%= user._id %>/achievements" method="post">
-  <span class="help-block">Year:</span>
-  <input class="achievement form-control" name="year" />
-  <br />
-  <span class="help-block">Title:</span>
-  <input class="achievement form-control" name="title" />
-  <br />
-  <span class="help-block">Description:</span>
-  <textarea class="achievement form-control" name="description" rows="7"></textarea><br>
-    <input class="btn btn-success" type="submit" name="submit" value="Post Achievements">
-  </form>
-  <br />
-</div>
-<hr>
 </div>
 
 <script type="text/javascript">
