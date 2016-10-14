@@ -12,7 +12,7 @@ In the modern age of social media, students have various platforms for communica
 
 Dash board of the site:
 
-![nupath_dashboard](nupath_dashboard.png)
+![nupath_dashboard](/images/nupath_dashboard.png)
 
 
 ---
@@ -62,9 +62,9 @@ Dash board of the site:
 
 ### Data Modeling
 
-![nupath_ERD](nupath_ERD.jpg)
-![nupath_homepage_wireframe](nupath_homepage_wireframe.png)
-![nupath_profilepg_wireframe](nupath_profilepg_wireframe.png)
+![nupath_ERD](/images/nupath_ERD.jpg)
+![nupath_homepage_wireframe](/images/nupath_homepage_wireframe.png)
+![nupath_profilepg_wireframe](/images/nupath_profilepg_wireframe.png)
 ---
 
 ###Lags
@@ -91,9 +91,13 @@ User POV:
 
 ###Future implementations
 <hr>
-1. As a user, I want to follow other users.
+1. As a user, I want to upload photos.
 
-2. As a user, I want to have a link to my profile which I can send to schools, universities, and employers so they can view my profile.
+2. As a user, I want to follow other users.
+
+3. As a user, I want to have a link to my profile which I can send to schools, universities, and employers so they can view my profile.
+
+4. As a user, I want to make comments on other users' pages (for example, congratulate a student for an achievement).
 
 
 ###Contribution:
