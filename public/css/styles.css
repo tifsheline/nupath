@@ -114,7 +114,8 @@ form {
   text-transform: capitalize;
 }
 
-#profile .avatar{
+#profile .avatar,
+#inbox .avatar{
   height: 50px;
   width: 50px;
   line-height: 50px;
@@ -150,15 +151,19 @@ form {
   min-height: 22px;
 }
 
-#profile .wbg a {
+.wbg a {
   color: #000;
 }
 
-#profile .wbg a:hover {
+.wbg a:hover {
   text-decoration: none;
 }
 
 #profile .messages{
+  padding: 10px 0px;
+}
+
+#inbox .messages{
   padding: 10px 0px;
 }
 
@@ -167,13 +172,15 @@ form {
   background: #77DD77;
 }
 
-#profile .message .sender{
+#profile .message .sender,
+#inbox .message .sender{
   font-weight: 700;
   padding-top: 5px;
   margin-bottom: 0;
 }
 
-#profile .message .peek{
+#profile .message .peek,
+#inbox .message .peek{
   font-style: italic;
 }
 
@@ -214,4 +221,14 @@ form {
 
 .col-md-4{
   min-height: 0;
+}
+
+.messages-container{
+  height: 600px;
+}
+
+#inbox .messages{
+  border-radius: 5px;
+  padding-left: 10px;
+
 }
